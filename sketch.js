@@ -5,20 +5,37 @@ var canvasHeight = 700;
 var blackSpaceFill = 0;
 var shipColor = 200;
 var asteroidColor = 150;
+var points = 0;
+var whiteTextColor = 255;
+var extra_lives = 0;
 
 function setup() {
   reset()
 }
 
 function draw() {
-  
+    var pointsDom = document.getElementById("points");
+    pointsDom.innerHTML = "Points: "+points;
+    
+    var livesDom = document.getElementById("extra_lives");
+    livesDom.innerHTML = "Extra lives:"+extra_lives;
 }
 
 function reset(){
-    createCanvas(canvasWidth, canvasHeight);
+    var canvas = createCanvas(canvasWidth, canvasHeight);
+    canvas.parent('sketch-holder');
 
-    frameRate(120);
+    frameRate(60);
     textSize(60);
     background(blackSpaceFill);
 
+    points = 0;
+    extra_lives = 0
 }
+
+function mousePressed()
+{
+  points++;
+}
+
+//window.addEventListener('load', setup());		

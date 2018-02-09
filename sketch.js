@@ -37,5 +37,3 @@ function mousePressed()
 {
   points++;
 }
-
-//window.addEventListener('load', setup());		

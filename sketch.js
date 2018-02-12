@@ -1,7 +1,7 @@
 "use strict";
 
 
-class Ship 
+class Ship
 {
     constructor()
     {
@@ -17,15 +17,13 @@ class Ship
 
     show()
     {
-        var scl = min(canvasHeight,canvasWidth) / 10
-        fill(200);
-        quad(this.x,this.y+scl, 
-             this.x+(scl/2),this.y, 
+        var scl = min(canvasHeight,canvasWidth) / 30
+        fill(0,200,10);
+        quad(this.x,this.y+scl,
+             this.x+(scl/2),this.y,
              this.x,this.y+(scl/2),
              this.x-(scl/2),this.y);
     }
-
-
 }
 
 var canvasWidth = 700;
@@ -37,6 +35,12 @@ var points = 0;
 var whiteTextColor = 255;
 var extra_lives = 0;
 var ship;
+var whiteNoise;
+var explosionEnvelope;
+var asteroidBreakEnvelope;
+var raygunOscillator;
+var raygunEnvelope;
+var brownNoise;
 
 function setup() {
   reset()
@@ -45,10 +49,10 @@ function setup() {
 function draw() {
     var pointsDom = document.getElementById("points");
     pointsDom.innerHTML = "Points: "+points;
-    
+
     var livesDom = document.getElementById("extra_lives");
     livesDom.innerHTML = "Extra lives:"+extra_lives;
-    
+
     ship.show();
 }
 
@@ -62,11 +66,47 @@ function reset(){
 
     points = 0;
     extra_lives = 0
-    
+
     ship = new Ship();
+
+    whiteNoise = new p5.Noise('white')
+    whiteNoise.amp(0);
+    whiteNoise.start()
+
+    brownNoise = new p5.Noise('brown');
+    brownNoise.amp(0);
+    brownNoise.start();
+
+    asteroidBreakEnvelope = new p5.Env();
+    asteroidBreakEnvelope.setADSR(0.005,0.01,1,0.005)
+
+    explosionEnvelope = new p5.Env();
+    explosionEnvelope.setADSR(0.001,1, 0.7, 1);
+
+    raygunOscillator = new p5.Oscillator();
+    raygunOscillator.setType('sawtooth');
+    raygunOscillator.freq(700);
+    raygunOscillator.amp(0);
+    raygunOscillator.start();
+
+    raygunEnvelope = new p5.Env();
+    raygunEnvelope.setADSR(0.001,0.04, 0.1, 0.05);
 }
 
 function mousePressed()
 {
   points++;
+  raygunEnvelope.play(raygunOscillator);
+  //explosionEnvelope.play(whiteNoise);
+  //asteroidBreakEnvelope.play(brownNoise);
+}
+
+function keyPressed()
+{
+  //asteroidBreakEnvelope.play(whiteNoise);
+  // if(key==='q')
+  // {
+
+
+  // }
 }

@@ -45,6 +45,16 @@ class Ship
     {
       this.x += this.xvel;
       this.y += this.yvel;
+
+      //appear on other edge if we go offscreen
+      if(this.x > canvasWidth)
+      {
+        this.x = 0;
+      }
+      if(this.x < 0)
+      {
+        this.x = canvasWidth;
+      }
     }
 
     thrust()

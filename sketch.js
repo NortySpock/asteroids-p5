@@ -25,6 +25,10 @@ function draw() {
     {
       ship.thrust();
     }
+    if(keyIsDown(DOWN_ARROW))
+    {
+      ship.retro();
+    }
     if(keyIsDown(LEFT_ARROW))
     {
       ship.rotateCounterClockwise();

@@ -9,6 +9,9 @@ class Ship
         this.constructor.reset();
         this.rotation = 0;
         this.rotationRate = 4; //degrees
+        this.thrustRate = 0.5;
+        this.retroMult = 0.95;
+        this.showThrusterFiring = false;
     }
 
     static reset()
@@ -17,6 +20,7 @@ class Ship
         this.y = canvasHeight/2;
         this.xvel = 0;
         this.yvel = 0;
+        this.showThrusterFiring = false;
     }
 
     show()
@@ -27,7 +31,14 @@ class Ship
         translate(this.x,this.y);
         rotate(radians(this.rotation));
 
-        fill(0,200,10);
+        if(this.showThrusterFiring)
+        {
+          fill(0,0,200);
+        }
+        else
+        {
+          fill(0,200,10);
+        }
         //I had to adjust the draw location to get
         //the Center of Rotation to feel right for this shape.
         //Center of Rotation is better known as
@@ -39,6 +50,7 @@ class Ship
              0-(scl/2),0+CoG_offset);
 
         pop();
+        this.showThrusterFiring = false;
     }
 
     update()
@@ -59,7 +71,13 @@ class Ship
 
     thrust()
     {
-      this.xvel += 1
+      this.xvel += this.thrustRate;
+      this.showThrusterFiring = true;
+    }
+
+    retro()
+    {
+      this.xvel *= this.retroMult;
     }
 
     rotateClockwise()

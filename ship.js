@@ -23,13 +23,21 @@ class Ship
     {
         var scl = min(canvasHeight,canvasWidth) / 30;
         push();
-        fill(0,200,10);
+
         translate(this.x,this.y);
         rotate(radians(this.rotation));
-        quad(0,        0-scl,
-             0+(scl/2),0,
-             0,        0-(scl/2),
-             0-(scl/2),0);
+
+        fill(0,200,10);
+        //I had to adjust the draw location to get
+        //the Center of Rotation to feel right for this shape.
+        //Center of Rotation is better known as
+        //the Center of Gravity
+        var CoG_offset = (scl/2)+(scl/10);
+        quad(0,        0-scl+CoG_offset,
+             0+(scl/2),0+CoG_offset,
+             0,        0-(scl/2)+CoG_offset,
+             0-(scl/2),0+CoG_offset);
+
         pop();
     }
 
@@ -46,11 +54,11 @@ class Ship
 
     rotateClockwise()
     {
-      this.rotation -= this.rotationRate;
+      this.rotation += this.rotationRate;
     }
 
     rotateCounterClockwise()
     {
-      this.rotation += this.rotationRate;
+      this.rotation -= this.rotationRate;
     }
 }

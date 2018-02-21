@@ -26,9 +26,8 @@ function draw() {
       ship.thrust();
     }
     
-    clear();
-    background(blackSpaceFill);
     // show objects
+    background(blackSpaceFill);
     ship.show();
     
     //update objects

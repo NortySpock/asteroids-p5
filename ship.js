@@ -7,6 +7,7 @@ class Ship
         this.xvel = 0;
         this.yvel = 0;
         this.constructor.reset();
+        this.rotation = 0;
     }
 
     static reset()
@@ -21,9 +22,9 @@ class Ship
     {
         var scl = min(canvasHeight,canvasWidth) / 30;
         fill(0,200,10);
-        quad(this.x,this.y+scl,
+        quad(this.x,        this.y-scl,
              this.x+(scl/2),this.y,
-             this.x,this.y+(scl/2),
+             this.x,        this.y-(scl/2),
              this.x-(scl/2),this.y);
     }
 

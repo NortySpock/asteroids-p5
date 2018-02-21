@@ -25,6 +25,14 @@ function draw() {
     {
       ship.thrust();
     }
+    if(keyIsDown(LEFT_ARROW))
+    {
+      ship.rotateCounterClockwise();
+    }
+    if(keyIsDown(RIGHT_ARROW))
+    {
+      ship.rotateClockwise();
+    }
     
     // show objects
     background(blackSpaceFill);
@@ -39,7 +47,10 @@ function draw() {
     pointsDom.innerHTML = "Points: " + points;
 
     var livesDom = document.getElementById("extra_lives");
-    livesDom.innerHTML = "Extra lives:" + extra_lives;    
+    livesDom.innerHTML = "Extra lives:" + extra_lives;
+
+var livesDom = document.getElementById("rotation");
+    livesDom.innerHTML = "rotation:" + ship.rotation;
 }
 
 function reset() {

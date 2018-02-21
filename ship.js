@@ -8,6 +8,7 @@ class Ship
         this.yvel = 0;
         this.constructor.reset();
         this.rotation = 0;
+        this.rotationRate = 4; //degrees
     }
 
     static reset()
@@ -21,11 +22,15 @@ class Ship
     show()
     {
         var scl = min(canvasHeight,canvasWidth) / 30;
+        push();
         fill(0,200,10);
-        quad(this.x,        this.y-scl,
-             this.x+(scl/2),this.y,
-             this.x,        this.y-(scl/2),
-             this.x-(scl/2),this.y);
+        translate(this.x,this.y);
+        rotate(radians(this.rotation));
+        quad(0,        0-scl,
+             0+(scl/2),0,
+             0,        0-(scl/2),
+             0-(scl/2),0);
+        pop();
     }
 
     update()
@@ -37,5 +42,15 @@ class Ship
     thrust()
     {
       this.xvel += 1
+    }
+
+    rotateClockwise()
+    {
+      this.rotation -= this.rotationRate;
+    }
+
+    rotateCounterClockwise()
+    {
+      this.rotation += this.rotationRate;
     }
 }

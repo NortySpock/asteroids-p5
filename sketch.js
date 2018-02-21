@@ -3,7 +3,6 @@
 var canvasWidth = 700;
 var canvasHeight = 700;
 var blackSpaceFill = 0;
-var shipColor = 200;
 var asteroidColor = 150;
 var points = 0;
 var whiteTextColor = 255;
@@ -17,20 +16,34 @@ var raygunEnvelope;
 var brownNoise;
 
 function setup() {
-  reset()
+  reset();
 }
 
 function draw() {
+    //key handling
+    if(keyIsDown(UP_ARROW))
+    {
+      ship.thrust();
+    }
+    
+    clear();
+    background(blackSpaceFill);
+    // show objects
+    ship.show();
+    
+    //update objects
+    ship.update();
+    
+    
+    //update surrounding HTML
     var pointsDom = document.getElementById("points");
-    pointsDom.innerHTML = "Points: "+points;
+    pointsDom.innerHTML = "Points: " + points;
 
     var livesDom = document.getElementById("extra_lives");
-    livesDom.innerHTML = "Extra lives:"+extra_lives;
-
-    ship.show();
+    livesDom.innerHTML = "Extra lives:" + extra_lives;    
 }
 
-function reset(){
+function reset() {
     var canvas = createCanvas(canvasWidth, canvasHeight);
     canvas.parent('sketch-holder');
 
@@ -39,20 +52,20 @@ function reset(){
     background(blackSpaceFill);
 
     points = 0;
-    extra_lives = 0
+    extra_lives = 0;
 
     ship = new Ship();
 
-    whiteNoise = new p5.Noise('white')
+    whiteNoise = new p5.Noise('white');
     whiteNoise.amp(0);
-    whiteNoise.start()
+    whiteNoise.start();
 
     brownNoise = new p5.Noise('brown');
     brownNoise.amp(0);
     brownNoise.start();
 
     asteroidBreakEnvelope = new p5.Env();
-    asteroidBreakEnvelope.setADSR(0.005,0.01,1,0.005)
+    asteroidBreakEnvelope.setADSR(0.005, 0.01, 1, 0.005);
 
     explosionEnvelope = new p5.Env();
     explosionEnvelope.setADSR(0.001,1, 0.7, 1);
@@ -64,23 +77,13 @@ function reset(){
     raygunOscillator.start();
 
     raygunEnvelope = new p5.Env();
-    raygunEnvelope.setADSR(0.001,0.04, 0.1, 0.05);
+    raygunEnvelope.setADSR(0.001, 0.04, 0.1, 0.05);
 }
 
 function mousePressed()
 {
-  points++;
-  //raygunEnvelope.play(raygunOscillator);
-  //explosionEnvelope.play(whiteNoise);
-  //asteroidBreakEnvelope.play(brownNoise);
-}
-
-function keyPressed()
-{
-  //asteroidBreakEnvelope.play(whiteNoise);
-  // if(key==='q')
-  // {
-
-
-  // }
+    points += 1;
+    //raygunEnvelope.play(raygunOscillator);
+    //explosionEnvelope.play(whiteNoise);
+    //asteroidBreakEnvelope.play(brownNoise);
 }

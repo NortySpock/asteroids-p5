@@ -9,7 +9,7 @@ class Ship
         this.constructor.reset();
         this.rotation = 0;
         this.rotationRate = 4; //degrees
-        this.thrustRate = 0.25;
+        this.thrustRate = 0.1;
         this.retroMult = 0.95;
         this.showThrusterFiring = false;
     }
@@ -67,17 +67,28 @@ class Ship
       {
         this.x = canvasWidth;
       }
+      if(this.y > canvasHeight)
+      {
+        this.y = 0;
+      }
+      if(this.y < 0)
+      {
+        this.y = canvasHeight;
+      }
     }
 
     thrust()
     {
-      this.xvel += this.thrustRate;
+      this.xvel += this.thrustRate * Math.sin(radians(this.rotation));
+      //had to flip yvel, not sure why
+      this.yvel += this.thrustRate * -Math.cos(radians(this.rotation));
       this.showThrusterFiring = true;
     }
 
     retro()
     {
       this.xvel *= this.retroMult;
+      this.yvel *= this.retroMult;
     }
 
     rotateClockwise()

@@ -20,23 +20,8 @@ function setup() {
 }
 
 function draw() {
-    //key handling
-    if(keyIsDown(UP_ARROW))
-    {
-      ship.thrust();
-    }
-    if(keyIsDown(DOWN_ARROW))
-    {
-      ship.retro();
-    }
-    if(keyIsDown(LEFT_ARROW))
-    {
-      ship.rotateCounterClockwise();
-    }
-    if(keyIsDown(RIGHT_ARROW))
-    {
-      ship.rotateClockwise();
-    }
+  
+    handleKeyInput();
     
     // show objects
     background(blackSpaceFill);
@@ -45,16 +30,7 @@ function draw() {
     //update objects
     ship.update();
     
-    
-    //update surrounding HTML
-    var pointsDom = document.getElementById("points");
-    pointsDom.innerHTML = "Points: " + points;
-
-    var livesDom = document.getElementById("extra_lives");
-    livesDom.innerHTML = "Extra lives:" + extra_lives;
-
-var livesDom = document.getElementById("rotation");
-    livesDom.innerHTML = "rotation:" + ship.rotation;
+    updateDOM();
 }
 
 function reset() {
@@ -100,4 +76,38 @@ function mousePressed()
     //raygunEnvelope.play(raygunOscillator);
     //explosionEnvelope.play(whiteNoise);
     //asteroidBreakEnvelope.play(brownNoise);
+}
+
+var handleKeyInput = function()
+{
+    //key handling
+    if(keyIsDown(UP_ARROW) || keyIsDown(87) /* w */)
+    {
+      ship.thrust();
+    }
+    if(keyIsDown(DOWN_ARROW) || keyIsDown(83) /* s */)
+    {
+      ship.retro();
+    }
+    if(keyIsDown(LEFT_ARROW) || keyIsDown(65) /* a */)
+    {
+      ship.rotateCounterClockwise();
+    }
+    if(keyIsDown(RIGHT_ARROW) || keyIsDown(68) /* d */)
+    {
+      ship.rotateClockwise();
+    }
+}
+
+var updateDOM = function()
+{
+    //update surrounding HTML
+    var pointsDom = document.getElementById("points");
+    pointsDom.innerHTML = "Points: " + points;
+
+    var livesDom = document.getElementById("extra_lives");
+    livesDom.innerHTML = "Extra lives:" + extra_lives;
+
+    var livesDom = document.getElementById("rotation");
+    livesDom.innerHTML = "rotation:" + ship.rotation;
 }

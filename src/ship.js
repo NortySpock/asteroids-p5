@@ -9,7 +9,7 @@ class Ship
         this.constructor.reset();
         this.rotation = 0;
         this.rotationRate = 4; //degrees
-        this.thrustRate = 0.5;
+        this.thrustRate = 0.25;
         this.retroMult = 0.95;
         this.showThrusterFiring = false;
     }
@@ -33,7 +33,7 @@ class Ship
 
         if(this.showThrusterFiring)
         {
-          fill(0,0,200);
+          fill(0,200,200);
         }
         else
         {

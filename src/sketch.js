@@ -15,6 +15,8 @@ var raygunOscillator;
 var raygunEnvelope;
 var brownNoise;
 
+var asteroid;
+
 function setup() {
   reset();
 }
@@ -25,10 +27,12 @@ function draw() {
 
     // show objects
     background(blackSpaceFill);
+    asteroid.show();
     ship.show();
 
     //update objects
     ship.update();
+    asteroid.update();
 
     updateDOM();
 }
@@ -45,6 +49,7 @@ function reset() {
     extra_lives = 0;
 
     ship = new Ship();
+    asteroid = new Asteroid();
 
     whiteNoise = new p5.Noise('white');
     whiteNoise.amp(0);
@@ -108,13 +113,13 @@ var updateDOM = function()
     var livesDom = document.getElementById("extra_lives");
     livesDom.innerHTML = "Extra lives:" + extra_lives;
 
-    var livesDom = document.getElementById("rotation");
-    livesDom.innerHTML = "rotation:" + ship.rotation;
+    // var livesDom = document.getElementById("rotation");
+    // livesDom.innerHTML = "rotation:" + ship.rotation;
 
 
-    var livesDom = document.getElementById("xvel");
-    livesDom.innerHTML = "xvel:" + ship.xvel;
+    // var livesDom = document.getElementById("xvel");
+    // livesDom.innerHTML = "xvel:" + ship.xvel;
 
-    var livesDom = document.getElementById("yvel");
-    livesDom.innerHTML = "yvel:" + ship.yvel;
+    // var livesDom = document.getElementById("yvel");
+    // livesDom.innerHTML = "yvel:" + ship.yvel;
 }

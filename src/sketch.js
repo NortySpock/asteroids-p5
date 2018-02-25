@@ -20,16 +20,16 @@ function setup() {
 }
 
 function draw() {
-  
+
     handleKeyInput();
-    
+
     // show objects
     background(blackSpaceFill);
     ship.show();
-    
+
     //update objects
     ship.update();
-    
+
     updateDOM();
 }
 
@@ -110,4 +110,11 @@ var updateDOM = function()
 
     var livesDom = document.getElementById("rotation");
     livesDom.innerHTML = "rotation:" + ship.rotation;
+
+
+    var livesDom = document.getElementById("xvel");
+    livesDom.innerHTML = "xvel:" + ship.xvel;
+
+    var livesDom = document.getElementById("yvel");
+    livesDom.innerHTML = "yvel:" + ship.yvel;
 }

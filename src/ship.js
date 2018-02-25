@@ -10,7 +10,7 @@ class Ship
         this.rotation = 0;
         this.rotationRate = 4; //degrees
         this.thrustRate = 0.1;
-        this.retroMult = 0.95;
+        this.retroMult = 0.98;
         this.showThrusterFiring = false;
     }
 
@@ -79,9 +79,12 @@ class Ship
 
     thrust()
     {
+
       this.xvel += this.thrustRate * Math.sin(radians(this.rotation));
+
       //had to flip yvel, not sure why
       this.yvel += this.thrustRate * -Math.cos(radians(this.rotation));
+
       this.showThrusterFiring = true;
     }
 

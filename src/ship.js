@@ -33,14 +33,8 @@ class Ship
         translate(this.x,this.y);
         rotate(radians(this.rotation));
 
-        if(this.showThrusterFiring)
-        {
-          fill(0,200,200);
-        }
-        else
-        {
-          fill(0,200,10);
-        }
+        noFill();
+        stroke(0,255,255); //cyan
         
         //I had to adjust the draw location to get
         //the Center of Rotation to feel right for this shape.

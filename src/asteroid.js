@@ -75,14 +75,8 @@ class Asteroid
         translate(this.x,this.y);
         rotate(radians(this.rotation));
 
-        if(!this.destroyed)
-        {
-            fill(200,100,100);
-        }
-        else
-        {
-            fill(255);
-        }
+        noFill();
+        stroke(255);
 
         this.polygon(0, 0, 50, 6);
 

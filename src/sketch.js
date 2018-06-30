@@ -3,7 +3,6 @@
 var canvasWidth = 700;
 var canvasHeight = 700;
 var blackSpaceFill = 0;
-var asteroidColor = 150;
 var points = 0;
 var whiteTextColor = 255;
 var extra_lives = 0;
@@ -103,7 +102,7 @@ var handleKeyInput = function()
     {
       ship.rotateClockwise();
     }
-}
+};
 
 var updateDOM = function()    
 {
@@ -130,7 +129,7 @@ var updateDOM = function()
 }
 
 
-var collision = function()    
+var collision = function()
 {
     // var fpsDom = document.getElementById("fps");
     // var fps = frameRate();
@@ -152,4 +151,4 @@ var collision = function()
 
     // var livesDom = document.getElementById("yvel");
     // livesDom.innerHTML = "yvel:" + ship.yvel;
-}
+};

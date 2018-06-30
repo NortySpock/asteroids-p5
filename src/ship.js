@@ -5,7 +5,7 @@ class Ship
         this.x = canvasWidth/2;
         this.y = canvasHeight/2;
         this.xvel = 0;
-        this.yvel = 0;        
+        this.yvel = 0;
         this.rotation = 0;
         this.rotationRate = 4; //degrees
         this.thrustRate = 0.1;
@@ -35,7 +35,7 @@ class Ship
 
         noFill();
         stroke(0,255,255); //cyan
-        
+
         //I had to adjust the draw location to get
         //the Center of Rotation to feel right for this shape.
         //Center of Rotation is better known as
@@ -45,15 +45,15 @@ class Ship
                        0+(scl/2),0+CoG_offset,
                        0,        0-(scl/2)+CoG_offset,
                        0-(scl/2),0+CoG_offset ];
-                       
+
     //update the lines that mark out the ship
     this.lines = [[this.coords[0],this.coords[1],this.coords[2],this.coords[3]],
                   [this.coords[2],this.coords[3],this.coords[4],this.coords[5]],
                   [this.coords[4],this.coords[5],this.coords[6],this.coords[7]],
                   [this.coords[0],this.coords[1],this.coords[6],this.coords[7]]];
-        //console.log(str(this.lines));
 
-        
+
+
 
         quad(this.coords[0],this.coords[1],
              this.coords[2],this.coords[3],
@@ -61,7 +61,7 @@ class Ship
              this.coords[6],this.coords[7]);
 
         pop();
-        
+
         //reset flag for next cycle
         this.showThrusterFiring = false;
     }
@@ -88,7 +88,7 @@ class Ship
       {
         this.y = canvasHeight;
       }
-      
+
       //update display position
     }
 
@@ -118,7 +118,7 @@ class Ship
     {
       this.rotation -= this.rotationRate;
     }
-    
+
     getCollisionLines()
     {
       return this.lines;

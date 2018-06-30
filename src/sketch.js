@@ -14,7 +14,6 @@ var raygunOscillator;
 var raygunEnvelope;
 var brownNoise;
 
-var asteroid;
 var asteroids = [];
 
 function setup() {
@@ -25,15 +24,15 @@ function draw() {
 
     handleKeyInput();
 
-    // show objects
+    //handle the basic ship drawing
     background(blackSpaceFill);
     ship.show();
     ship.update();
     
     //handle all the asteroids
-    asteroids.forEach(function(roid){
-      roid.show();
-      roid.update();
+    asteroids.forEach(function(rock){
+      rock.show();
+      rock.update();
     });
 
     updateDOM();

@@ -15,6 +15,7 @@ var raygunEnvelope;
 var brownNoise;
 
 var asteroid;
+var asteroids = [];
 
 function setup() {
   reset();
@@ -26,12 +27,14 @@ function draw() {
 
     // show objects
     background(blackSpaceFill);
-    asteroid.show();
     ship.show();
-
-    //update objects
     ship.update();
-    asteroid.update();
+    
+    //handle all the asteroids
+    asteroids.forEach(function(roid){
+      roid.show();
+      roid.update();
+    });
 
     updateDOM();
     
@@ -49,7 +52,9 @@ function reset() {
     extra_lives = 0;
 
     ship = new Ship();
-    asteroid = new Asteroid();
+    asteroids = [];
+    asteroids.push(new Asteroid())
+    
 
     whiteNoise = new p5.Noise('white');
     whiteNoise.amp(0);

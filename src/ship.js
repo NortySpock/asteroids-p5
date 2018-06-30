@@ -34,7 +34,15 @@ class Ship
         rotate(radians(this.rotation));
 
         noFill();
-        stroke(0,255,255); //cyan
+
+        if(this.showThrusterFiring)
+        {
+          stroke(0,255,255); //cyan
+        }
+        else
+        {
+          stroke(0,255,0); //green
+        }
 
         //I had to adjust the draw location to get
         //the Center of Rotation to feel right for this shape.

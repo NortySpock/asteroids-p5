@@ -1,4 +1,3 @@
-add engine puff to ship
 add collision box to asteroids
 add sounds back in
 add bullets

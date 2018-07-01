@@ -25,25 +25,26 @@ function draw() {
 
     handleKeyInput();
 
-    //handle the basic ship drawing
     background(blackSpaceFill);
-    ship.show();
-    ship.update();
-    
+
     //handle all the asteroids
     asteroids.forEach(function(rock){
       rock.show();
       rock.update();
     });
-    
+
     //handle all the proton bolts
     protonBolts.forEach(function(proton){
       proton.render();
       proton.update();
     });
 
+    //render ship last so it overlays everything
+    ship.show();
+    ship.update();
+
     updateDOM();
-    
+
 }
 
 function reset() {
@@ -60,7 +61,7 @@ function reset() {
     ship = new Ship();
     asteroids = [];
     asteroids.push(new Asteroid())
-    
+
 
     whiteNoise = new p5.Noise('white');
     whiteNoise.amp(0);
@@ -89,7 +90,7 @@ function reset() {
 function mousePressed()
 {
     points += 1;
-    //raygunEnvelope.play(raygunOscillator);
+
     //explosionEnvelope.play(whiteNoise);
     //asteroidBreakEnvelope.play(brownNoise);
 }
@@ -113,17 +114,19 @@ var handleKeyInput = function()
     if(keyIsDown(RIGHT_ARROW) || keyIsDown(68) /* d */)
     {
       ship.rotateClockwise();
-    }    
+    }
 };
 
 function keyPressed() {
   if(key == ' ')
   {
-    protonBolts.push(new Proton(ship.x,ship.y));
+    //protonBolts.push(new Proton(ship.x,ship.y,radians(ship.gunOrientation)));
+    protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
+    //raygunEnvelope.play(raygunOscillator);
   }
 };
 
-var updateDOM = function()    
+var updateDOM = function()
 {
     // var fpsDom = document.getElementById("fps");
     // var fps = frameRate();

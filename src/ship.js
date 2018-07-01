@@ -7,6 +7,9 @@ class Ship
         this.xvel = 0;
         this.yvel = 0;
         this.rotation = 0;
+        this.gunOrientation = 0;
+        this.gunPos = createVector();
+        this.gunRotationOffset = -90;
         this.rotationRate = 4; //degrees
         this.thrustRate = 0.1;
         this.retroMult = 0.98;
@@ -98,7 +101,11 @@ class Ship
         this.y = canvasHeight;
       }
 
-      //update display position
+      this.gunOrientation = this.rotation + this.gunRotationOffset;
+      //this.gunPos = createVector(this.coords[0],this.coords[1]);
+      //this.gunPos = createVector(this.x+this.coords[2],this.y+this.coords[3]);
+      this.gunPos = createVector(this.x+this.coords[0],this.y+this.coords[1]);
+
     }
 
     thrust()

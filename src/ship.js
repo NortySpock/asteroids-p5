@@ -36,7 +36,7 @@ class Ship
         translate(this.x,this.y);
         rotate(radians(this.rotation));
 
-        noFill();
+        fill(0);
         strokeWeight(1);
 
         if(this.showThrusterFiring)

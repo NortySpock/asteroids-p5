@@ -46,6 +46,19 @@ function draw() {
       }
     }
 
+    //check for collisions
+    for (var i = protonBolts.length - 1; i >= 0; --i)
+    {
+      for(var j = asteroids.length -1; j >= 0; j--)
+      {
+        var bolt = protonBolts[i];
+        if(asteroids[j].checkCollision(bolt.pos.x,bolt.pos.y))
+        {
+          asteroids[j].destroyed = true;
+        }
+      }
+    }
+
     //render ship last so it overlays everything
     ship.update();
     ship.render();

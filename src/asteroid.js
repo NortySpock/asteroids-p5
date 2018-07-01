@@ -8,7 +8,7 @@ class Asteroid
         this.yvel = 0.5;
         this.rotation = 0;
         this.rotationRate = 1; //degrees per frame
-        this.destroyed = false;        
+        this.destroyed = false;
         this.coords = [];
         this.lines = [];
         this.collideRadius = 40
@@ -44,7 +44,7 @@ class Asteroid
 
         this.coords.push(sx);
         this.coords.push(sy);
-        
+
         var clen = this.coords.length;
         //if we have enough for a line, we can add the most recent line
         if(clen >= 4)
@@ -57,7 +57,7 @@ class Asteroid
         }
       }
       endShape(CLOSE);
-      
+
       //need to add the last line
       var clen = this.coords.length;
       if(clen >= 6) //need a 3 sided object
@@ -79,10 +79,18 @@ class Asteroid
         rotate(radians(this.rotation));
 
         noFill();
-        stroke(255);
+
+        if(!this.destroyed)
+        {
+            stroke(255);
+        } else
+        {
+            stroke(255,0,0);
+        }
+
         strokeWeight(1);
 
-        this.polygon(0, 0, this.collideRadius+10, this.polygonPoints);
+        this.polygon(0, 0, this.collideRadius+1, this.polygonPoints);
 
         pop();
     }
@@ -112,20 +120,16 @@ class Asteroid
       }
     }
 
-    checkCollision(x,y)
-    {
-      var dx = x - this.x;
-      var dy = y - this.y;
-      var distance = Math.sqrt(dx * dx + dy * dy);
-      return distance <= this.collideRadius
-    }
-
     checkCollision(x,y,radius)
     {
-      var dx = x - this.x;
-      var dy = y - this.y;
-      var distance = Math.sqrt(dx * dx + dy * dy);
-      return distance <= (this.collideRadius + radius)
+      if(radius)
+      {
+        return dist(this.x,this.y,x,y) <= (this.collideRadius + radius)
+      }
+      else
+      {
+        return dist(this.x,this.y,x,y) <= this.collideRadius
+      }
     }
 
     getCollisionLines()

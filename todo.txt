@@ -1,5 +1,4 @@
 randomize asteroid shapes
 randomize asteroid rotation
 make random number and placement of asteroids
-add collision box to asteroids
 add sounds back in

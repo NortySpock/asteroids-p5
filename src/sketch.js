@@ -94,6 +94,7 @@ function mousePressed()
     //asteroidBreakEnvelope.play(brownNoise);
 }
 
+//handles continuous presses
 var handleKeyInput = function()
 {
     //key handling
@@ -112,11 +113,14 @@ var handleKeyInput = function()
     if(keyIsDown(RIGHT_ARROW) || keyIsDown(68) /* d */)
     {
       ship.rotateClockwise();
-    }
-    if(key = ' ')
-    {
-      protonBolts.push(new Proton(ship.x,ship.y));
-    }
+    }    
+};
+
+function keyPressed() {
+  if(key == ' ')
+  {
+    protonBolts.push(new Proton(ship.x,ship.y));
+  }
 };
 
 var updateDOM = function()    

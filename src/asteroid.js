@@ -11,7 +11,9 @@ class Asteroid
         this.destroyed = false;        
         this.coords = [];
         this.lines = [];
+        this.collideRadius = 40
         this.constructor.reset();
+        this.polygonPoints = 6;
     }
 
     static reset()
@@ -25,6 +27,7 @@ class Asteroid
         this.destroyed = false;
         this.coords = [];
         this.lines = [];
+        this.collideRadius = 40;
     }
 
     polygon(x, y, radius, ncoords) {
@@ -77,8 +80,9 @@ class Asteroid
 
         noFill();
         stroke(255);
+        strokeWeight(1);
 
-        this.polygon(0, 0, 50, 6);
+        this.polygon(0, 0, this.collideRadius+10, this.polygonPoints);
 
         pop();
     }
@@ -106,6 +110,22 @@ class Asteroid
       {
         this.y = canvasHeight;
       }
+    }
+
+    checkCollision(x,y)
+    {
+      var dx = x - this.x;
+      var dy = y - this.y;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      return distance <= this.collideRadius
+    }
+
+    checkCollision(x,y,radius)
+    {
+      var dx = x - this.x;
+      var dy = y - this.y;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      return distance <= (this.collideRadius + radius)
     }
 
     getCollisionLines()

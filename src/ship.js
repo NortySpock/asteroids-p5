@@ -34,6 +34,7 @@ class Ship
         rotate(radians(this.rotation));
 
         noFill();
+        strokeWeight(1);
 
         if(this.showThrusterFiring)
         {

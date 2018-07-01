@@ -15,6 +15,7 @@ var raygunEnvelope;
 var brownNoise;
 
 var asteroids = [];
+var protonBolts = [];
 
 function setup() {
   reset();
@@ -33,6 +34,12 @@ function draw() {
     asteroids.forEach(function(rock){
       rock.show();
       rock.update();
+    });
+    
+    //handle all the proton bolts
+    protonBolts.forEach(function(proton){
+      proton.render();
+      proton.update();
     });
 
     updateDOM();
@@ -105,6 +112,10 @@ var handleKeyInput = function()
     if(keyIsDown(RIGHT_ARROW) || keyIsDown(68) /* d */)
     {
       ship.rotateClockwise();
+    }
+    if(key = ' ')
+    {
+      protonBolts.push(new Proton(ship.x,ship.y));
     }
 };
 

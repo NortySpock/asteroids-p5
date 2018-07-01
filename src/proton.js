@@ -1,8 +1,15 @@
-function Proton(startx,starty,radianDirection)  //the bullets of the game
+function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the game
 {
   this.pos = createVector(startx,starty);
-  this.vel = p5.Vector.fromAngle(radianDirection)
-  this.protonSpeedMult = 2;
+  if(inputvel)
+  {
+    this.vel = p5.Vector.fromAngle(radianDirection)
+    this.vel.add(inputvel)
+  } else
+  {
+    this.vel = p5.Vector.fromAngle(radianDirection)
+  }
+  this.protonSpeedMult = 3;
   this.vel.mult(this.protonSpeedMult);
   this.deleteFlag = false;
 

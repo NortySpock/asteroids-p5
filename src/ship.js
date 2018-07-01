@@ -104,7 +104,8 @@ class Ship
       this.gunOrientation = this.rotation + this.gunRotationOffset;
       //this.gunPos = createVector(this.coords[0],this.coords[1]);
       //this.gunPos = createVector(this.x+this.coords[2],this.y+this.coords[3]);
-      this.gunPos = createVector(this.x+this.coords[0],this.y+this.coords[1]);
+      //this.gunPos = createVector(this.x+this.coords[0],this.y+this.coords[1]);
+      this.gunPos = createVector(this.x,this.y);
 
     }
 

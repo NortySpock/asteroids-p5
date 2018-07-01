@@ -47,8 +47,9 @@ function draw() {
     }
 
     //render ship last so it overlays everything
-    ship.render();
     ship.update();
+    ship.render();
+
 
     updateDOM();
 

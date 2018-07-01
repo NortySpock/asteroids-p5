@@ -4,6 +4,7 @@ function Proton(startx,starty,radianDirection)  //the bullets of the game
   this.vel = p5.Vector.fromAngle(radianDirection)
   this.protonSpeedMult = 2;
   this.vel.mult(this.protonSpeedMult);
+  this.deleteFlag = false;
 
 
   this.update = function()
@@ -18,5 +19,12 @@ function Proton(startx,starty,radianDirection)  //the bullets of the game
     strokeWeight(4);
     point(this.pos.x,this.pos.y);
     pop();
+
+    //mark for deletion if it goes out of range
+    if(this.pos.x < 0 || this.pos.x > width ||
+       this.pos.y < 0 || this.pos.y > height)
+    {
+      this.deleteFlag = true;
+    }
   }
 }

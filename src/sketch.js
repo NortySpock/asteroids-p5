@@ -28,16 +28,23 @@ function draw() {
     background(blackSpaceFill);
 
     //handle all the asteroids
-    asteroids.forEach(function(rock){
-      rock.show();
-      rock.update();
-    });
+    for(var i = asteroids.length -1; i >= 0; i--)
+    {
+      asteroids[i].show();
+      asteroids[i].update();
+    }
 
     //handle all the proton bolts
-    protonBolts.forEach(function(proton){
-      proton.render();
-      proton.update();
-    });
+    for (var i = protonBolts.length - 1; i >= 0; --i)
+    {
+      protonBolts[i].render();
+      protonBolts[i].update();
+
+      if(protonBolts[i].deleteFlag)
+      {
+        protonBolts.splice(i,1);
+      }
+    }
 
     //render ship last so it overlays everything
     ship.show();

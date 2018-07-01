@@ -28,7 +28,7 @@ class Ship
         this.showThrusterFiring = false;
     }
 
-    show()
+    render()
     {
         var scl = min(canvasHeight,canvasWidth) / 30;
         push();

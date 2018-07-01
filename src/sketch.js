@@ -30,7 +30,7 @@ function draw() {
     //handle all the asteroids
     for(var i = asteroids.length -1; i >= 0; i--)
     {
-      asteroids[i].show();
+      asteroids[i].render();
       asteroids[i].update();
     }
 
@@ -47,7 +47,7 @@ function draw() {
     }
 
     //render ship last so it overlays everything
-    ship.show();
+    ship.render();
     ship.update();
 
     updateDOM();

@@ -70,7 +70,7 @@ class Asteroid
       }
     }
 
-    show()
+    render()
     {
         var scl = min(canvasHeight,canvasWidth) / 20;
         push();

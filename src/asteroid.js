@@ -2,8 +2,7 @@ class Asteroid
 {
     constructor()
     {
-        this.x = canvasWidth/2;
-        this.y = canvasHeight/4;
+        this.pos = createVector(canvasWidth/2,canvasHeight/4);
         this.xvel = 0.5;
         this.yvel = 0.5;
         this.rotation = 0;
@@ -18,8 +17,7 @@ class Asteroid
 
     static reset()
     {
-        this.x = canvasWidth/2;
-        this.y = canvasHeight/4;
+        this.pos = createVector(canvasWidth/2,canvasHeight/4);
         this.xvel = 0.5;
         this.yvel = 0.5;
         this.rotation = 0;
@@ -75,7 +73,7 @@ class Asteroid
         var scl = min(canvasHeight,canvasWidth) / 20;
         push();
 
-        translate(this.x,this.y);
+        translate(this.pos.x,this.pos.y);
         rotate(radians(this.rotation));
 
         noFill();
@@ -97,26 +95,25 @@ class Asteroid
 
     update()
     {
-      this.x += this.xvel;
-      this.y += this.yvel;
+      this.pos.add(this.xvel,this.yvel);
       this.rotation += this.rotationRate;
 
       //appear on other edge if we go offscreen
-      if(this.x > canvasWidth)
+      if(this.pos.x > canvasWidth)
       {
-        this.x = 0;
+        this.pos.x = 0;
       }
-      if(this.x < 0)
+      if(this.pos.x < 0)
       {
-        this.x = canvasWidth;
+        this.pos.x = canvasWidth;
       }
-      if(this.y > canvasHeight)
+      if(this.pos.y > canvasHeight)
       {
-        this.y = 0;
+        this.pos.y = 0;
       }
-      if(this.y < 0)
+      if(this.pos.y < 0)
       {
-        this.y = canvasHeight;
+        this.pos.y = canvasHeight;
       }
     }
 
@@ -124,11 +121,11 @@ class Asteroid
     {
       if(radius)
       {
-        return dist(this.x,this.y,x,y) <= (this.collideRadius + radius)
+        return dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius + radius)
       }
       else
       {
-        return dist(this.x,this.y,x,y) <= this.collideRadius
+        return dist(this.pos.x,this.pos.y,x,y) <= this.collideRadius
       }
     }
 

@@ -76,8 +76,7 @@ class Ship
 
     update()
     {
-      this.pos.x += this.vel.x;
-      this.pos.y += this.vel.y;
+      this.pos.add(this.vel);
 
       //appear on other edge if we go offscreen
       if(this.pos.x > canvasWidth)

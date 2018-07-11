@@ -107,9 +107,10 @@ class Ship
     thrust()
     {
 
-      this.vel.x += this.thrustRate * Math.sin(radians(this.rotation));
+      var xcomponent = this.thrustRate * Math.sin(radians(this.rotation));
+      var ycomponent = this.thrustRate * -Math.cos(radians(this.rotation));
 
-      this.vel.y += this.thrustRate * -Math.cos(radians(this.rotation));
+      this.vel.add(xcomponent,ycomponent);
 
       this.showThrusterFiring = true;
     }

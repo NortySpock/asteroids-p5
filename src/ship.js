@@ -3,8 +3,7 @@ class Ship
     constructor()
     {
         this.pos = createVector(canvasWidth/2,canvasHeight/2);
-        this.xvel = 0;
-        this.yvel = 0;
+        this.vel = createVector(0,0);
         this.rotation = 0;
         this.gunOrientation = 0;
         this.gunPos = createVector();
@@ -21,8 +20,7 @@ class Ship
     static reset()
     {
         this.pos = createVector(canvasWidth/2,canvasHeight/2);
-        this.xvel = 0;
-        this.yvel = 0;
+        this.vel = createVector(0,0);
         this.showThrusterFiring = false;
     }
 
@@ -78,8 +76,8 @@ class Ship
 
     update()
     {
-      this.pos.x += this.xvel;
-      this.pos.y += this.yvel;
+      this.pos.x += this.vel.x;
+      this.pos.y += this.vel.y;
 
       //appear on other edge if we go offscreen
       if(this.pos.x > canvasWidth)
@@ -110,18 +108,17 @@ class Ship
     thrust()
     {
 
-      this.xvel += this.thrustRate * Math.sin(radians(this.rotation));
+      this.vel.x += this.thrustRate * Math.sin(radians(this.rotation));
 
-      //had to flip yvel, not sure why
-      this.yvel += this.thrustRate * -Math.cos(radians(this.rotation));
+      this.vel.y += this.thrustRate * -Math.cos(radians(this.rotation));
 
       this.showThrusterFiring = true;
     }
 
     retro()
     {
-      this.xvel *= this.retroMult;
-      this.yvel *= this.retroMult;
+      this.vel.x *= this.retroMult;
+      this.vel.y *= this.retroMult;
     }
 
     rotateClockwise()

@@ -148,9 +148,9 @@ function keyPressed() {
 
 var updateDOM = function()
 {
-    // var fpsDom = document.getElementById("fps");
-    // var fps = frameRate();
-    // fpsDom.innerHTML = "FPS:" + fps.toFixed(2);
+    var fpsDom = document.getElementById("fps");
+    var fps = frameRate();
+    fpsDom.innerHTML = "FPS:" + fps.toFixed(0);
 
     //update surrounding HTML
     var pointsDom = document.getElementById("points");
@@ -169,28 +169,3 @@ var updateDOM = function()
     // var livesDom = document.getElementById("yvel");
     // livesDom.innerHTML = "yvel:" + ship.yvel;
 }
-
-
-var collision = function()
-{
-    // var fpsDom = document.getElementById("fps");
-    // var fps = frameRate();
-    // fpsDom.innerHTML = "FPS:" + fps.toFixed(2);
-
-    //update surrounding HTML
-    var pointsDom = document.getElementById("points");
-    pointsDom.innerHTML = "Points: " + points;
-
-    var livesDom = document.getElementById("extra_lives");
-    livesDom.innerHTML = "Extra lives:" + extra_lives;
-
-    // var livesDom = document.getElementById("rotation");
-    // livesDom.innerHTML = "rotation:" + ship.rotation;
-
-
-    // var livesDom = document.getElementById("xvel");
-    // livesDom.innerHTML = "xvel:" + ship.xvel;
-
-    // var livesDom = document.getElementById("yvel");
-    // livesDom.innerHTML = "yvel:" + ship.yvel;
-};

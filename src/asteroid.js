@@ -3,8 +3,7 @@ class Asteroid
     constructor()
     {
         this.pos = createVector(canvasWidth/2,canvasHeight/4);
-        this.xvel = 0.5;
-        this.yvel = 0.5;
+        this.vel = createVector(0.5,0.5);
         this.rotation = 0;
         this.rotationRate = 1; //degrees per frame
         this.destroyed = false;
@@ -18,8 +17,7 @@ class Asteroid
     static reset()
     {
         this.pos = createVector(canvasWidth/2,canvasHeight/4);
-        this.xvel = 0.5;
-        this.yvel = 0.5;
+        this.vel = createVector(0.5,0.5);
         this.rotation = 0;
         this.rotationRate = 1; //degrees per frame
         this.destroyed = false;
@@ -95,7 +93,7 @@ class Asteroid
 
     update()
     {
-      this.pos.add(this.xvel,this.yvel);
+      this.pos.add(this.vel);
       this.rotation += this.rotationRate;
 
       //appear on other edge if we go offscreen

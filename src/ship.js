@@ -117,8 +117,7 @@ class Ship
 
     retro()
     {
-      this.vel.x *= this.retroMult;
-      this.vel.y *= this.retroMult;
+      this.vel.mult(this.retroMult);
     }
 
     rotateClockwise()

@@ -148,9 +148,9 @@ function keyPressed() {
 
 var updateDOM = function()
 {
-    var fpsDom = document.getElementById("fps");
-    var fps = frameRate();
-    fpsDom.innerHTML = "FPS:" + fps.toFixed(0);
+    // var fpsDom = document.getElementById("fps");
+    // var fps = frameRate();
+    // fpsDom.innerHTML = "FPS:" + fps.toFixed(0);
 
     //update surrounding HTML
     var pointsDom = document.getElementById("points");

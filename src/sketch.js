@@ -141,7 +141,6 @@ var handleKeyInput = function()
 function keyPressed() {
   if(key == ' ')
   {
-    //protonBolts.push(new Proton(ship.x,ship.y,radians(ship.gunOrientation)));
     protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
     //raygunEnvelope.play(raygunOscillator);
   }

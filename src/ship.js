@@ -2,8 +2,7 @@ class Ship
 {
     constructor()
     {
-        this.x = canvasWidth/2;
-        this.y = canvasHeight/2;
+        this.pos = createVector(canvasWidth/2,canvasHeight/2);
         this.xvel = 0;
         this.yvel = 0;
         this.rotation = 0;
@@ -21,8 +20,7 @@ class Ship
 
     static reset()
     {
-        this.x = canvasWidth/2;
-        this.y = canvasHeight/2;
+        this.pos = createVector(canvasWidth/2,canvasHeight/2);
         this.xvel = 0;
         this.yvel = 0;
         this.showThrusterFiring = false;
@@ -33,7 +31,7 @@ class Ship
         var scl = min(canvasHeight,canvasWidth) / 30;
         push();
 
-        translate(this.x,this.y);
+        translate(this.pos.x,this.pos.y);
         rotate(radians(this.rotation));
 
         fill(0);
@@ -80,32 +78,32 @@ class Ship
 
     update()
     {
-      this.x += this.xvel;
-      this.y += this.yvel;
+      this.pos.x += this.xvel;
+      this.pos.y += this.yvel;
 
       //appear on other edge if we go offscreen
-      if(this.x > canvasWidth)
+      if(this.pos.x > canvasWidth)
       {
-        this.x = 0;
+        this.pos.x = 0;
       }
-      if(this.x < 0)
+      if(this.pos.x < 0)
       {
-        this.x = canvasWidth;
+        this.pos.x = canvasWidth;
       }
-      if(this.y > canvasHeight)
+      if(this.pos.y > canvasHeight)
       {
-        this.y = 0;
+        this.pos.y = 0;
       }
-      if(this.y < 0)
+      if(this.pos.y < 0)
       {
-        this.y = canvasHeight;
+        this.pos.y = canvasHeight;
       }
 
       this.gunOrientation = this.rotation + this.gunRotationOffset;
       //this.gunPos = createVector(this.coords[0],this.coords[1]);
-      //this.gunPos = createVector(this.x+this.coords[2],this.y+this.coords[3]);
-      //this.gunPos = createVector(this.x+this.coords[0],this.y+this.coords[1]);
-      this.gunPos = createVector(this.x,this.y);
+      //this.gunPos = createVector(this.pos.x+this.coords[2],this.pos.y+this.coords[3]);
+      //this.gunPos = createVector(this.pos.x+this.coords[0],this.pos.y+this.coords[1]);
+      this.gunPos = createVector(this.pos.x,this.pos.y);
 
     }
 

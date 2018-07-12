@@ -33,12 +33,12 @@ class Asteroid
       this.coords = [];
       this.lines = [];
       this.collideRadius = 40
-      this.polygonPoints = 3 + int(random(7));
+      this.polygonPoints = 3 + int(randomFromInterval(0,7));
       this.pointOffsets = [this.polygonPoints];
       var offsetDelta = 0.8*r;
       for(var i = 0; i < this.polygonPoints;i++)
       {
-        this.pointOffsets[i] = random(offsetDelta)-offsetDelta
+        this.pointOffsets[i] = randomFromInterval(-offsetDelta,offsetDelta)
       }
 
     }

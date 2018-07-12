@@ -14,14 +14,6 @@ class Ship
         this.showThrusterFiring = false;
         this.coords = [];
         this.lines = [];
-        this.constructor.reset();
-    }
-
-    static reset()
-    {
-        this.pos = createVector(canvasWidth/2,canvasHeight/2);
-        this.vel = createVector(0,0);
-        this.showThrusterFiring = false;
     }
 
     render()

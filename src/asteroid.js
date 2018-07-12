@@ -5,25 +5,13 @@ class Asteroid
         this.pos = createVector(canvasWidth/2,canvasHeight/4);
         this.vel = createVector(0.5,0.5);
         this.rotation = 0;
-        this.rotationRate = 1; //degrees per frame
+        this.rotationRate = 0; //degrees per frame
         this.destroyed = false;
         this.coords = [];
         this.lines = [];
         this.collideRadius = 40
-        this.constructor.reset();
         this.polygonPoints = 6;
-    }
-
-    static reset()
-    {
-        this.pos = createVector(canvasWidth/2,canvasHeight/4);
-        this.vel = createVector(0.5,0.5);
-        this.rotation = 0;
-        this.rotationRate = 1; //degrees per frame
-        this.destroyed = false;
-        this.coords = [];
-        this.lines = [];
-        this.collideRadius = 40;
+        this.r = 50;
     }
 
     polygon(x, y, radius, ncoords) {

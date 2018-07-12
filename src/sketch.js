@@ -64,7 +64,7 @@ function draw() {
     ship.render();
 
 
-    updateDOM();
+    //updateDOM();
 
 }
 
@@ -106,6 +106,8 @@ function reset() {
 
     raygunEnvelope = new p5.Env();
     raygunEnvelope.setADSR(0.001, 0.04, 0.1, 0.05);
+
+    setInterval(updateDOM,1000);
 }
 
 function mousePressed()
@@ -148,9 +150,9 @@ function keyPressed() {
 
 var updateDOM = function()
 {
-    // var fpsDom = document.getElementById("fps");
-    // var fps = frameRate();
-    // fpsDom.innerHTML = "FPS:" + fps.toFixed(0);
+    var fpsDom = document.getElementById("fps");
+    var fps = frameRate();
+    fpsDom.innerHTML = "FPS:" + fps.toFixed(0);
 
     //update surrounding HTML
     var pointsDom = document.getElementById("points");

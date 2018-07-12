@@ -2,6 +2,10 @@ class Asteroid
 {
     constructor(x,y,r)
     {
+      function randomFromInterval(min,max){
+          return Math.random()*(max-min+1)+min;
+      }
+
       if(x && y)
       {
         this.pos = createVector(x,y);
@@ -19,21 +23,23 @@ class Asteroid
         this.r = 50;
       }
 
-        this.maxvel = 3
-        this.vel = createVector(random(this.maxvel)-this.maxvel,random(this.maxvel)-this.maxvel);
-        this.rotation = 0;
-        this.rotationRate = 0; //degrees per frame
-        this.destroyed = false;
-        this.coords = [];
-        this.lines = [];
-        this.collideRadius = 40
-        this.polygonPoints = 3 + int(random(7));
-        this.pointOffsets = [this.polygonPoints];
-        var offsetDelta = 0.8*r;
-        for(var i = 0; i < this.polygonPoints;i++)
-        {
-          this.pointOffsets[i] = random(offsetDelta)-offsetDelta
-        }
+
+
+      this.maxvel = 3
+      this.vel = createVector(randomFromInterval(-this.maxvel,this.maxvel),randomFromInterval(-this.maxvel,this.maxvel));
+      this.rotation = 0;
+      this.rotationRate = 0; //degrees per frame
+      this.destroyed = false;
+      this.coords = [];
+      this.lines = [];
+      this.collideRadius = 40
+      this.polygonPoints = 3 + int(random(7));
+      this.pointOffsets = [this.polygonPoints];
+      var offsetDelta = 0.8*r;
+      for(var i = 0; i < this.polygonPoints;i++)
+      {
+        this.pointOffsets[i] = random(offsetDelta)-offsetDelta
+      }
 
     }
 

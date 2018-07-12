@@ -18,10 +18,9 @@ class Asteroid
       {
         this.r = 50;
       }
+
         this.maxvel = 3
         this.vel = createVector(random(this.maxvel)-this.maxvel,random(this.maxvel)-this.maxvel);
-
-        //this.vel = createVector(3,3);
         this.rotation = 0;
         this.rotationRate = 0; //degrees per frame
         this.destroyed = false;
@@ -131,10 +130,5 @@ class Asteroid
       {
         return dist(this.pos.x,this.pos.y,x,y) <= this.collideRadius
       }
-    }
-
-    getCollisionLines()
-    {
-      return this.lines;
     }
 }

@@ -107,7 +107,7 @@ function reset() {
     raygunEnvelope = new p5.Env();
     raygunEnvelope.setADSR(0.001, 0.04, 0.1, 0.05);
 
-    setInterval(updateDOM,1000);
+    setInterval(updateDOM,500);
 }
 
 function mousePressed()

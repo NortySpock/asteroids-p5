@@ -1,9 +1,27 @@
 class Asteroid
 {
-    constructor()
+    constructor(x,y,r)
     {
-        this.pos = createVector(canvasWidth/2,canvasHeight/4);
-        this.vel = createVector(0.5,0.5);
+      if(x && y)
+      {
+        this.pos = createVector(x,y);
+      }
+      else //start asteroid on "random" edge
+      {
+        this.pos = createVector(canvasHeight/2,0)
+      }
+      if(r)
+      {
+        this.r = r
+      }
+      else
+      {
+        this.r = 50;
+      }
+        this.maxvel = 3
+        this.vel = createVector(random(this.maxvel)-this.maxvel,random(this.maxvel)-this.maxvel);
+
+        //this.vel = createVector(3,3);
         this.rotation = 0;
         this.rotationRate = 0; //degrees per frame
         this.destroyed = false;
@@ -11,7 +29,7 @@ class Asteroid
         this.lines = [];
         this.collideRadius = 40
         this.polygonPoints = 6;
-        this.r = 50;
+
     }
 
     polygon(x, y, radius, ncoords) {

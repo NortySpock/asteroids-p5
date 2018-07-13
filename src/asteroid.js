@@ -32,7 +32,7 @@ class Asteroid
       this.destroyed = false;
       this.coords = [];
       this.lines = [];
-      this.collideRadius = 40
+
       this.polygonPoints = 3 + int(randomFromInterval(0,7));
       this.pointOffsets = [this.polygonPoints];
       var offsetDelta = 0.8*r;
@@ -40,7 +40,8 @@ class Asteroid
       {
         this.pointOffsets[i] = randomFromInterval(-offsetDelta,offsetDelta)
       }
-
+      this.inradius	= this.r*cos(PI/this.polygonPoints);
+      this.collideRadius = (this.r + this.inradius)/2; //avg radius of outer points and inner radius
     }
 
     polygon(x, y, radius, ncoords) {

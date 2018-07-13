@@ -22,24 +22,31 @@ class Asteroid
       {
         this.r = 50;
       }
-
-
-
+      //velocity and rotation
       this.maxvel = 3
       this.vel = createVector(randomFromInterval(-this.maxvel,this.maxvel),randomFromInterval(-this.maxvel,this.maxvel));
       this.rotation = 0;
       this.rotationRate = 0; //degrees per frame
+
+
       this.destroyed = false;
+
+      //was using this for collision, but will probably stick with collideRadius
       this.coords = [];
       this.lines = [];
 
+      //randomize polygon shape
       this.polygonPoints = 3 + int(randomFromInterval(0,7));
+
+      //used for making jaggy shaped asteroids
       this.pointOffsets = [this.polygonPoints];
       var offsetDelta = 0.8*r;
       for(var i = 0; i < this.polygonPoints;i++)
       {
         this.pointOffsets[i] = randomFromInterval(-offsetDelta,offsetDelta)
       }
+
+      //calculate collideRadius
       this.inradius	= this.r*cos(PI/this.polygonPoints);
       this.collideRadius = (this.r + this.inradius)/2; //avg radius of outer points and inner radius
     }

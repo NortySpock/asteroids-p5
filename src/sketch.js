@@ -1,11 +1,10 @@
 "use strict";
 
-var canvasWidth = 700;
-var canvasHeight = 700;
+var canvasWidth = 600;
+var canvasHeight = 600;
 var blackSpaceFill = 0;
 var points = 0;
 var whiteTextColor = 255;
-var extra_lives = 0;
 var ship;
 var whiteNoise;
 var explosionEnvelope;
@@ -99,7 +98,6 @@ function reset() {
     background(blackSpaceFill);
 
     points = 0;
-    extra_lives = 0;
 
     ship = new Ship();
     asteroids = [];
@@ -115,19 +113,19 @@ function reset() {
     brownNoise.start();
 
     asteroidBreakEnvelope = new p5.Env();
-    asteroidBreakEnvelope.setADSR(0.005, 0.01, 1, 0.005);
+    asteroidBreakEnvelope.setADSR(0.005, 0.07, 1, 0.005);
 
     explosionEnvelope = new p5.Env();
     explosionEnvelope.setADSR(0.001,1, 0.7, 1);
 
     raygunOscillator = new p5.Oscillator();
     raygunOscillator.setType('sawtooth');
-    raygunOscillator.freq(700);
+    raygunOscillator.freq(600);
     raygunOscillator.amp(0);
     raygunOscillator.start();
 
     raygunEnvelope = new p5.Env();
-    raygunEnvelope.setADSR(0.001, 0.04, 0.1, 0.05);
+    raygunEnvelope.setADSR(0.001, 0.02, 0.05, 0.05);
 
     setInterval(halfSecondUpdateLoop,500);
     setInterval(oneSecondUpdateLoop,1000);
@@ -179,8 +177,6 @@ var updateDOM = function()
     var pointsDom = document.getElementById("points");
     pointsDom.innerHTML = "Points: " + points;
 
-    var livesDom = document.getElementById("extra_lives");
-    livesDom.innerHTML = "Extra lives:" + extra_lives;
 
     // var livesDom = document.getElementById("rotation");
     // livesDom.innerHTML = "rotation:" + ship.rotation;

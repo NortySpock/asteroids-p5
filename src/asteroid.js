@@ -40,7 +40,7 @@ class Asteroid
 
       //used for making jaggy shaped asteroids
       this.pointOffsets = [this.polygonPoints];
-      var offsetDelta = 0.8*r;
+      var offsetDelta = 0.5*this.r;
       for(var i = 0; i < this.polygonPoints;i++)
       {
         this.pointOffsets[i] = randomFromInterval(-offsetDelta,offsetDelta)

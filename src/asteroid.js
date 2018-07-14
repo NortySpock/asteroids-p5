@@ -48,7 +48,7 @@ class Asteroid
 
       //calculate collideRadius
       this.inradius	= this.r*cos(PI/this.polygonPoints);
-      this.collideRadius = (this.r + this.inradius)/2; //avg radius of outer points and inner radius
+      this.collideRadius = this.inradius;
     }
 
     render()
@@ -66,7 +66,7 @@ class Asteroid
             stroke(255);
         } else
         {
-            stroke(255,0,0);
+            stroke(255,0,0); //red
         }
 
         strokeWeight(1);

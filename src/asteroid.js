@@ -117,4 +117,9 @@ class Asteroid
         return dist(this.pos.x,this.pos.y,x,y) <= this.collideRadius
       }
     }
+
+    smallerAsteroidSize()
+    {
+      return this.r * 0.4;
+    }
 }

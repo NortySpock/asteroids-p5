@@ -49,15 +49,36 @@ function draw() {
     //check for collisions
     for (var i = protonBolts.length - 1; i >= 0; --i)
     {
-      for(var j = asteroids.length -1; j >= 0; j--)
+      for(var j = asteroids.length - 1; j >= 0; j--)
       {
         var bolt = protonBolts[i];
         if(asteroids[j].checkCollision(bolt.pos.x,bolt.pos.y))
         {
-          asteroids[j].destroyed = true;
-          points += 1;
+          //check if the rock breaks
+          var smallRock = asteroids[j].smallerAsteroidSize();
+          if(smallRock > 12)
+          {
+            //record previous position
+            var oldPos = asteroids[j].pos
+
+            //create two more on the high end of the array
+            asteroids.push(new Asteroid(oldPos.x,oldPos.y,smallRock));
+            asteroids.push(new Asteroid(oldPos.x,oldPos.y,smallRock));
+          }
+          //delete the old asteroid
+          asteroids.splice(j,1);
+          protonBolts[i].deleteFlag = true;
+
+          points += 10;
+          asteroidBreakEnvelope.play(brownNoise);
         }
       }
+
+      if(protonBolts[i].deleteFlag)
+      {
+        protonBolts.splice(i,1);
+      }
+
     }
 
     //render ship last so it overlays everything
@@ -108,7 +129,8 @@ function reset() {
     raygunEnvelope = new p5.Env();
     raygunEnvelope.setADSR(0.001, 0.04, 0.1, 0.05);
 
-    setInterval(updateDOM,500);
+    setInterval(halfSecondUpdateLoop,500);
+    setInterval(oneSecondUpdateLoop,1000);
 }
 
 function mousePressed()
@@ -178,4 +200,20 @@ function randomFromInterval(min,max){
 function coinFlip()
 {
   return (int(Math.random() * 2) == 0);
+}
+
+function halfSecondUpdateLoop()
+{
+  updateDOM();
+}
+
+function oneSecondUpdateLoop() {
+  if(asteroids.length <= 0)
+  {
+    var toAdd = 3 + (millis()/1000/60);
+    for(var i=0; i < toAdd;i++)
+    {
+      asteroids.push(new Asteroid())
+    }
+  }
 }

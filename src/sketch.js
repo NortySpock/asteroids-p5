@@ -171,3 +171,12 @@ var updateDOM = function()
     // var livesDom = document.getElementById("yvel");
     // livesDom.innerHTML = "yvel:" + ship.yvel;
 }
+
+function randomFromInterval(min,max){
+    return Math.random()*(max-min+1)+min;
+}
+
+function coinFlip()
+{
+  return (int(Math.random() * 2) == 0);
+}

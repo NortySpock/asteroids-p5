@@ -2,17 +2,21 @@ class Asteroid
 {
     constructor(x,y,r)
     {
-      function randomFromInterval(min,max){
-          return Math.random()*(max-min+1)+min;
-      }
-
       if(x && y)
       {
         this.pos = createVector(x,y);
       }
       else //start asteroid on "random" edge
       {
-        this.pos = createVector(canvasHeight/2,0)
+        //x or y random position
+        if(coinFlip())
+        {
+          this.pos = createVector(randomFromInterval(0,canvasWidth),0);
+        }
+        else
+        {
+          this.pos = createVector(0, randomFromInterval(0,canvasHeight));
+        }
       }
       if(r)
       {

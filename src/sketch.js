@@ -12,6 +12,7 @@ var asteroidBreakEnvelope;
 var raygunOscillator;
 var raygunEnvelope;
 var brownNoise;
+var debugMode = false;
 
 var asteroids = [];
 var protonBolts = [];
@@ -164,6 +165,11 @@ function keyPressed() {
   {
     protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
     raygunEnvelope.play(raygunOscillator);
+  }
+
+  if(key == 'P' && debugMode)
+  {
+    asteroids.push(new Asteroid());
   }
 };
 

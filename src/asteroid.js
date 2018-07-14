@@ -30,7 +30,7 @@ class Asteroid
       this.maxvel = 3
       this.vel = createVector(randomFromInterval(-this.maxvel,this.maxvel),randomFromInterval(-this.maxvel,this.maxvel));
       this.rotation = 0; //radians
-      this.rotationRate = 0; //radians per frame
+      this.rotationRate = radians(randomFromInterval(0,1)); //radians per frame
 
 
       this.destroyed = false;

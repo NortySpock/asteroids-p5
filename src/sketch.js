@@ -55,6 +55,7 @@ function draw() {
         if(asteroids[j].checkCollision(bolt.pos.x,bolt.pos.y))
         {
           asteroids[j].destroyed = true;
+          points += 1;
         }
       }
     }
@@ -112,8 +113,6 @@ function reset() {
 
 function mousePressed()
 {
-    points += 1;
-
     //explosionEnvelope.play(whiteNoise);
     //asteroidBreakEnvelope.play(brownNoise);
 }

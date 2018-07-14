@@ -31,16 +31,12 @@ class Asteroid
 
       this.destroyed = false;
 
-      //was using this for collision, but will probably stick with collideRadius
-      this.coords = [];
-      this.lines = [];
-
       //randomize polygon shape
       this.polygonPoints = 3 + int(randomFromInterval(0,7));
 
       //used for making jaggy shaped asteroids
       this.pointOffsets = [this.polygonPoints];
-      var offsetDelta = 0.5*this.r;
+      var offsetDelta = 0.5*this.r
       for(var i = 0; i < this.polygonPoints;i++)
       {
         this.pointOffsets[i] = randomFromInterval(-offsetDelta,offsetDelta)
@@ -70,13 +66,12 @@ class Asteroid
 
         strokeWeight(1);
 
-        this.coords = [];
-        this.lines = [];
-        var angle = TWO_PI / this.polygonPoints;
         beginShape();
-        for (var a = 0; a < TWO_PI; a += angle) {
-          var sx = cos(a) * this.r;
-          var sy = sin(a) * this.r;
+        for(var i = 0; i < this.polygonPoints; i++)
+        {
+          var angle = map(i,0,this.polygonPoints,0,TWO_PI); //converts from points to angle
+          var sx = cos(angle) * (this.r + this.pointOffsets[i]);
+          var sy = sin(angle) * (this.r + this.pointOffsets[i]);
           vertex(sx, sy);
         }
         endShape(CLOSE);

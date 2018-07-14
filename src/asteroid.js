@@ -25,8 +25,8 @@ class Asteroid
       //velocity and rotation
       this.maxvel = 3
       this.vel = createVector(randomFromInterval(-this.maxvel,this.maxvel),randomFromInterval(-this.maxvel,this.maxvel));
-      this.rotation = 0;
-      this.rotationRate = 0; //degrees per frame
+      this.rotation = 0; //radians
+      this.rotationRate = 0; //radians per frame
 
 
       this.destroyed = false;
@@ -55,11 +55,10 @@ class Asteroid
     {
         var scl = min(canvasHeight,canvasWidth) / 20;
         push();
+        noFill();
 
         translate(this.pos.x,this.pos.y);
-        rotate(radians(this.rotation));
-
-        noFill();
+        rotate(this.rotation);
 
         if(!this.destroyed)
         {
@@ -79,34 +78,8 @@ class Asteroid
           var sx = cos(a) * this.r;
           var sy = sin(a) * this.r;
           vertex(sx, sy);
-
-          this.coords.push(sx);
-          this.coords.push(sy);
-
-          var clen = this.coords.length;
-          //if we have enough for a line, we can add the most recent line
-          if(clen >= 4)
-          {
-              //coordinates are added 2 at a time
-              this.lines.push([this.coords[clen-4],
-                               this.coords[clen-3],
-                               this.coords[clen-2],
-                               this.coords[clen-1]]);
-          }
         }
         endShape(CLOSE);
-
-        //need to add the last line
-        var clen = this.coords.length;
-        if(clen >= 6) //need a 3 sided object
-        {
-          //add last point connecting to first point
-          this.lines.push([this.coords[clen-2],
-                           this.coords[clen-1],
-                           this.coords[0],
-                           this.coords[1]]);
-        }
-
         pop();
     }
 

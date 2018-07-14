@@ -144,7 +144,7 @@ function keyPressed() {
   if(key == ' ')
   {
     protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
-    //raygunEnvelope.play(raygunOscillator);
+    raygunEnvelope.play(raygunOscillator);
   }
 };
 

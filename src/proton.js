@@ -9,7 +9,7 @@ function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the ga
   {
     this.vel = p5.Vector.fromAngle(radianDirection)
   }
-  this.protonSpeedMult = 3;
+  this.protonSpeedMult = 4;
   this.vel.mult(this.protonSpeedMult);
   this.deleteFlag = false;
 

@@ -51,46 +51,6 @@ class Asteroid
       this.collideRadius = (this.r + this.inradius)/2; //avg radius of outer points and inner radius
     }
 
-    polygon(x, y, radius, ncoords) {
-      //Polygon code from
-      //https://p5js.org/examples/form-regular-polygon.html
-      this.coords = [];
-      this.lines = [];
-      var angle = TWO_PI / ncoords;
-      beginShape();
-      for (var a = 0; a < TWO_PI; a += angle) {
-        var sx = x + cos(a) * radius;
-        var sy = y + sin(a) * radius;
-        vertex(sx, sy);
-
-        this.coords.push(sx);
-        this.coords.push(sy);
-
-        var clen = this.coords.length;
-        //if we have enough for a line, we can add the most recent line
-        if(clen >= 4)
-        {
-            //coordinates are added 2 at a time
-            this.lines.push([this.coords[clen-4],
-                             this.coords[clen-3],
-                             this.coords[clen-2],
-                             this.coords[clen-1]]);
-        }
-      }
-      endShape(CLOSE);
-
-      //need to add the last line
-      var clen = this.coords.length;
-      if(clen >= 6) //need a 3 sided object
-      {
-        //add last point connecting to first point
-        this.lines.push([this.coords[clen-2],
-                         this.coords[clen-1],
-                         this.coords[0],
-                         this.coords[1]]);
-      }
-    }
-
     render()
     {
         var scl = min(canvasHeight,canvasWidth) / 20;
@@ -111,7 +71,41 @@ class Asteroid
 
         strokeWeight(1);
 
-        this.polygon(0, 0, this.collideRadius+1, this.polygonPoints);
+        this.coords = [];
+        this.lines = [];
+        var angle = TWO_PI / this.polygonPoints;
+        beginShape();
+        for (var a = 0; a < TWO_PI; a += angle) {
+          var sx = cos(a) * this.r;
+          var sy = sin(a) * this.r;
+          vertex(sx, sy);
+
+          this.coords.push(sx);
+          this.coords.push(sy);
+
+          var clen = this.coords.length;
+          //if we have enough for a line, we can add the most recent line
+          if(clen >= 4)
+          {
+              //coordinates are added 2 at a time
+              this.lines.push([this.coords[clen-4],
+                               this.coords[clen-3],
+                               this.coords[clen-2],
+                               this.coords[clen-1]]);
+          }
+        }
+        endShape(CLOSE);
+
+        //need to add the last line
+        var clen = this.coords.length;
+        if(clen >= 6) //need a 3 sided object
+        {
+          //add last point connecting to first point
+          this.lines.push([this.coords[clen-2],
+                           this.coords[clen-1],
+                           this.coords[0],
+                           this.coords[1]]);
+        }
 
         pop();
     }

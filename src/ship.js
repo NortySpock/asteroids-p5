@@ -13,7 +13,7 @@ class Ship
         this.retroMult = 0.98;
         this.showThrusterFiring = false;
         this.coords = [];
-        this.lines = [];
+        //this.lines = [];
     }
 
     render()
@@ -47,10 +47,10 @@ class Ship
                        0-(scl/2),0+CoG_offset ];
 
     //update the lines that mark out the ship
-    this.lines = [[this.coords[0],this.coords[1],this.coords[2],this.coords[3]],
-                  [this.coords[2],this.coords[3],this.coords[4],this.coords[5]],
-                  [this.coords[4],this.coords[5],this.coords[6],this.coords[7]],
-                  [this.coords[0],this.coords[1],this.coords[6],this.coords[7]]];
+    // this.lines = [[this.coords[0],this.coords[1],this.coords[2],this.coords[3]],
+                  // [this.coords[2],this.coords[3],this.coords[4],this.coords[5]],
+                  // [this.coords[4],this.coords[5],this.coords[6],this.coords[7]],
+                  // [this.coords[0],this.coords[1],this.coords[6],this.coords[7]]];
 
 
 
@@ -122,8 +122,8 @@ class Ship
       this.rotation -= this.rotationRate;
     }
 
-    getCollisionLines()
-    {
-      return this.lines;
-    }
+    // getCollisionLines()
+    // {
+      // return this.lines;
+    // }
 }

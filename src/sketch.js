@@ -16,6 +16,53 @@ var debugMode = false;
 
 var asteroids = [];
 var protonBolts = [];
+var aliens = [];
+
+function reset() {
+    var canvas = createCanvas(canvasWidth, canvasHeight);
+    canvas.parent('sketch-holder');
+
+    frameRate(60);
+    textSize(60);
+    background(blackSpaceFill);
+
+    points = 0;
+
+    ship = new Ship();
+    asteroids = [];
+    asteroids.push(new Asteroid())
+
+    aliens = [];
+    aliens.push(new Alien());
+
+
+    whiteNoise = new p5.Noise('white');
+    whiteNoise.amp(0);
+    whiteNoise.start();
+
+    brownNoise = new p5.Noise('brown');
+    brownNoise.amp(0);
+    brownNoise.start();
+
+    asteroidBreakEnvelope = new p5.Env();
+    asteroidBreakEnvelope.setADSR(0.005, 0.07, 1, 0.005);
+
+    explosionEnvelope = new p5.Env();
+    explosionEnvelope.setADSR(0.001,1, 0.7, 1);
+
+    raygunOscillator = new p5.Oscillator();
+    raygunOscillator.setType('sawtooth');
+    raygunOscillator.freq(600);
+    raygunOscillator.amp(0);
+    raygunOscillator.start();
+
+    raygunEnvelope = new p5.Env();
+    raygunEnvelope.setADSR(0.001, 0.02, 0.05, 0.05);
+
+    setInterval(halfSecondUpdateLoop,500);
+    setInterval(oneSecondUpdateLoop,1000);
+}
+
 
 function setup() {
   reset();
@@ -43,6 +90,17 @@ function draw() {
       if(protonBolts[i].deleteFlag)
       {
         protonBolts.splice(i,1);
+      }
+    }
+
+    for(var i = aliens.length - 1; i >= 0; i--)
+    {
+      aliens[i].update();
+      aliens[i].render();
+
+      if(aliens[i].deleteFlag)
+      {
+        aliens.splice(i,1);
       }
     }
 
@@ -86,52 +144,13 @@ function draw() {
     ship.render();
 }
 
-function reset() {
-    var canvas = createCanvas(canvasWidth, canvasHeight);
-    canvas.parent('sketch-holder');
-
-    frameRate(60);
-    textSize(60);
-    background(blackSpaceFill);
-
-    points = 0;
-
-    ship = new Ship();
-    asteroids = [];
-    asteroids.push(new Asteroid())
-
-
-    whiteNoise = new p5.Noise('white');
-    whiteNoise.amp(0);
-    whiteNoise.start();
-
-    brownNoise = new p5.Noise('brown');
-    brownNoise.amp(0);
-    brownNoise.start();
-
-    asteroidBreakEnvelope = new p5.Env();
-    asteroidBreakEnvelope.setADSR(0.005, 0.07, 1, 0.005);
-
-    explosionEnvelope = new p5.Env();
-    explosionEnvelope.setADSR(0.001,1, 0.7, 1);
-
-    raygunOscillator = new p5.Oscillator();
-    raygunOscillator.setType('sawtooth');
-    raygunOscillator.freq(600);
-    raygunOscillator.amp(0);
-    raygunOscillator.start();
-
-    raygunEnvelope = new p5.Env();
-    raygunEnvelope.setADSR(0.001, 0.02, 0.05, 0.05);
-
-    setInterval(halfSecondUpdateLoop,500);
-    setInterval(oneSecondUpdateLoop,1000);
-}
 
 function mousePressed()
 {
-    //explosionEnvelope.play(whiteNoise);
-    //asteroidBreakEnvelope.play(brownNoise);
+    for(var i = aliens.length - 1; i >= 0; i--)
+    {
+      aliens[i].hit();
+    }
 }
 
 //handles continuous presses

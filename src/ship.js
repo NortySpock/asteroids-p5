@@ -13,12 +13,13 @@ class Ship
         this.retroMult = 0.98;
         this.showThrusterFiring = false;
         this.coords = [];
+        this.scl = min(canvasHeight,canvasWidth) / 30;
         //this.lines = [];
     }
 
     render()
     {
-        var scl = min(canvasHeight,canvasWidth) / 30;
+        var scl = this.scl;
         push();
 
         translate(this.pos.x,this.pos.y);

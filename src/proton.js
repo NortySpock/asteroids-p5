@@ -9,10 +9,12 @@ function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the ga
   {
     this.vel = p5.Vector.fromAngle(radianDirection)
   }
-  this.protonSpeedMult = 4;
+  this.protonSpeedMult = 5;
   this.vel.mult(this.protonSpeedMult);
   this.deleteFlag = false;
-  this.numberOfCrossings = 0
+  this.numberOfXCrossings = 0;
+  this.numberOfYCrossings = 0;
+
 
 
   this.update = function()
@@ -28,24 +30,26 @@ function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the ga
         if(this.pos.x > canvasWidth)
         {
           this.pos.x = 0;
+          this.numberOfXCrossings += 1;
         }
         if(this.pos.x < 0)
         {
           this.pos.x = canvasWidth;
+          this.numberOfXCrossings += 1;
         }
         if(this.pos.y > canvasHeight)
         {
           this.pos.y = 0;
+          this.numberOfYCrossings += 1;
         }
         if(this.pos.y < 0)
         {
           this.pos.y = canvasHeight;
+          this.numberOfYCrossings += 1;
         }
-
-        this.numberOfCrossings += 1;
       }
 
-      if(this.numberOfCrossings > 1)
+      if(this.numberOfXCrossings > 1 || this.numberOfYCrossings > 1)
       {
         this.deleteFlag = true;
       }

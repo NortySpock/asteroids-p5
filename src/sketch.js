@@ -208,7 +208,7 @@ function halfSecondUpdateLoop()
 function oneSecondUpdateLoop() {
   if(asteroids.length <= 0)
   {
-    var toAdd = 3 + (millis()/1000/60);
+    var toAdd = 3 + (millis()/1000/60); //3 + number of minutes you have been playing
     for(var i=0; i < toAdd;i++)
     {
       asteroids.push(new Asteroid())

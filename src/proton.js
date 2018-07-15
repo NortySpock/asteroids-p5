@@ -12,11 +12,43 @@ function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the ga
   this.protonSpeedMult = 4;
   this.vel.mult(this.protonSpeedMult);
   this.deleteFlag = false;
+  this.numberOfCrossings = 0
 
 
   this.update = function()
   {
       this.pos.add(this.vel);
+
+      // transition to other side of screen if crossed,
+      // but we might delete it if it has flown too far.
+      if(this.pos.x < 0 || this.pos.x > canvasWidth ||
+         this.pos.y < 0 || this.pos.y > canvasHeight)
+      {
+        //appear on other edge if we go offscreen
+        if(this.pos.x > canvasWidth)
+        {
+          this.pos.x = 0;
+        }
+        if(this.pos.x < 0)
+        {
+          this.pos.x = canvasWidth;
+        }
+        if(this.pos.y > canvasHeight)
+        {
+          this.pos.y = 0;
+        }
+        if(this.pos.y < 0)
+        {
+          this.pos.y = canvasHeight;
+        }
+
+        this.numberOfCrossings += 1;
+      }
+
+      if(this.numberOfCrossings > 1)
+      {
+        this.deleteFlag = true;
+      }
   }
 
   this.render = function()
@@ -26,12 +58,5 @@ function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the ga
     strokeWeight(4);
     point(this.pos.x,this.pos.y);
     pop();
-
-    //mark for deletion if it goes out of range
-    if(this.pos.x < 0 || this.pos.x > width ||
-       this.pos.y < 0 || this.pos.y > height)
-    {
-      this.deleteFlag = true;
-    }
   }
 }

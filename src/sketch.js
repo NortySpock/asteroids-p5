@@ -30,15 +30,15 @@ function draw() {
     //handle all the asteroids
     for(var i = asteroids.length -1; i >= 0; i--)
     {
-      asteroids[i].render();
       asteroids[i].update();
+      asteroids[i].render();
     }
 
     //handle all the proton bolts
     for (var i = protonBolts.length - 1; i >= 0; --i)
     {
-      protonBolts[i].render();
       protonBolts[i].update();
+      protonBolts[i].render();
 
       if(protonBolts[i].deleteFlag)
       {
@@ -84,10 +84,6 @@ function draw() {
     //render ship last so it overlays everything
     ship.update();
     ship.render();
-
-
-    //updateDOM();
-
 }
 
 function reset() {

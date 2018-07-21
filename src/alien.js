@@ -4,7 +4,7 @@ class Alien
     {
         this.pos = createVector(canvasWidth/4,canvasHeight/4);
         this.vel = createVector(0,0);
-        this.hidden = true;
+        this.hidden = false;
         this.maxHealth = 3 + (millis()/1000/60); //1 + number of minutes you have been playing
         this.health = this.maxHealth;
         this.color = color(255,0,255);
@@ -12,7 +12,7 @@ class Alien
         this.max_cloak_time_millis=3000;
         this.show_timer = 0;
         this.gun_warmup_timer = 0;
-        this.scl = min(canvasHeight,canvasWidth) / 30;
+        this.scl = min(canvasHeight,canvasWidth) / 28;
         this.collideRadius = this.scl * 2;
         this.deleteFlag = false;
     }
@@ -37,7 +37,7 @@ class Alien
         fill(0);
         stroke(this.color);
         ellipse(this.pos.x, this.pos.y, this.scl*2, this.scl);
-
+        point(this.pos.x, this.pos.y);
         pop();
       }
     }

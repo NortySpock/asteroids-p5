@@ -4,6 +4,7 @@ class SoundManager
     constructor()
     {
         this.soundQueue = []
+        this.mute = false;
 
         this.whiteNoise = new p5.Noise('white');
         this.whiteNoise.amp(0);
@@ -34,24 +35,26 @@ class SoundManager
         this.soundQueue.push(sound);
     }
 
-    clearQueue()
-    {
-        this.soundQueue = [];
-    }
-
     playAllQueuedSounds()
     {
-        var previousSound = '';
-        while(this.soundQueue.length > 0)
+        if(this.mute)
         {
-            var currentSound = this.soundQueue.pop()
-            //cheap trick to try to avoid repeating sounds
-            if(previousSound==currentSound)
+            this.soundQueue = []; //clear queue
+        }
+        else
+        {
+            var previousSound = '';
+            while(this.soundQueue.length > 0)
             {
-                continue;
+                var currentSound = this.soundQueue.pop()
+                //cheap trick to try to avoid repeating sounds
+                if(previousSound==currentSound)
+                {
+                    continue;
+                }
+                this.playSound(currentSound);
+                previousSound = currentSound;
             }
-            this.playSound(currentSound);
-            previousSound = currentSound;
         }
     }
     
@@ -68,6 +71,16 @@ class SoundManager
         default:
             console.log('Sound not found:'+sound);
         }
+    }
+
+    mute()
+    {
+        this.mute = true;
+    }
+
+    unmute()
+    {
+        this.mute = false;
     }
 }
 

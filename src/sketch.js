@@ -6,12 +6,7 @@ var blackSpaceFill = 0;
 var points = 0;
 var whiteTextColor = 255;
 var ship;
-var whiteNoise;
-var explosionEnvelope;
-var asteroidBreakEnvelope;
-var raygunOscillator;
-var raygunEnvelope;
-var brownNoise;
+var soundMgr;
 var debugMode = false;
 
 var asteroids = [];
@@ -35,30 +30,7 @@ function reset() {
     aliens = [];
     aliens.push(new Alien());
 
-
-    whiteNoise = new p5.Noise('white');
-    whiteNoise.amp(0);
-    whiteNoise.start();
-
-    brownNoise = new p5.Noise('brown');
-    brownNoise.amp(0);
-    brownNoise.start();
-
-    asteroidBreakEnvelope = new p5.Env();
-    asteroidBreakEnvelope.setADSR(0.005, 0.07, 1, 0.005);
-
-    explosionEnvelope = new p5.Env();
-    explosionEnvelope.setADSR(0.001,1, 0.7, 1);
-
-    raygunOscillator = new p5.Oscillator();
-    raygunOscillator.setType('sawtooth');
-    raygunOscillator.freq(600);
-    raygunOscillator.amp(0);
-    raygunOscillator.start();
-
-    raygunEnvelope = new p5.Env();
-    raygunEnvelope.setADSR(0.001, 0.02, 0.05, 0.05);
-
+    soundMgr = new SoundManager();
     setInterval(halfSecondUpdateLoop,500);
     setInterval(oneSecondUpdateLoop,1000);
 }
@@ -128,7 +100,7 @@ function draw() {
           protonBolts[i].deleteFlag = true;
 
           points += 10;
-          asteroidBreakEnvelope.play(brownNoise);
+          soundMgr.queueSound('asteroid_break');
         }
       }
 
@@ -142,6 +114,9 @@ function draw() {
     //render ship last so it overlays everything
     ship.update();
     ship.render();
+
+    //play all the sounds we've built up this frame
+    soundMgr.playAllQueuedSounds();
 }
 
 
@@ -179,7 +154,7 @@ function keyPressed() {
   if(key == ' ')
   {
     protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
-    raygunEnvelope.play(raygunOscillator);
+    soundMgr.queueSound('proton_bolt');
   }
 
   if(key == 'P' && debugMode)
@@ -234,3 +209,4 @@ function oneSecondUpdateLoop() {
     }
   }
 }
+

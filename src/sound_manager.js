@@ -66,7 +66,7 @@ class SoundManager
             this.asteroidBreakEnvelope.play(this.brownNoise);
             break;
         default:
-            throw new Error('Sound not found:'+sound);
+            console.log('Sound not found:'+sound);
         }
     }
 }

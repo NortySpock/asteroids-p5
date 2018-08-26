@@ -4,8 +4,7 @@ class SoundManager
     constructor()
     {
         this.soundQueue = []
-        this.distinctSoundQueue = [];
-        
+
         this.whiteNoise = new p5.Noise('white');
         this.whiteNoise.amp(0);
         this.whiteNoise.start();

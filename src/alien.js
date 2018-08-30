@@ -16,9 +16,9 @@ class Alien
         this.scl = min(canvasHeight,canvasWidth) / 28;
         this.collideRadius = this.scl * 2;
         this.deleteFlag = false;
-        this.maxAccel = createVector(1,1);
-
-
+        this.mass = 100;
+        this.maxForce = 100;
+        this.maxSpeed = 10;
     }
 
     render()

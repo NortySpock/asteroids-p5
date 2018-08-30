@@ -4,10 +4,11 @@ class Alien
     {
         this.pos = createVector(canvasWidth/4,canvasHeight/4);
         this.vel = createVector(0,0);
-        this.hidden = false;
         this.maxHealth = 3 + (millis()/1000/60); //1 + number of minutes you have been playing
         this.health = this.maxHealth;
-        this.color = color(255,0,255);
+        this.cyan = color(0,255,255);
+        this.magenta = color(255,0,255);
+        this.color = this.magenta;
         this.cloak_timer = 0;
         this.max_cloak_time_millis=3000;
         this.show_timer = 0;
@@ -15,18 +16,9 @@ class Alien
         this.scl = min(canvasHeight,canvasWidth) / 28;
         this.collideRadius = this.scl * 2;
         this.deleteFlag = false;
-    }
+        this.maxAccel = createVector(1,1);
 
-    cloak()
-    {
-      this.hidden = true;
-      this.cloak_timer = millis();
-    }
 
-    uncloak()
-    {
-      this.hidden = false;
-      this.show_timer = millis();
     }
 
     render()
@@ -37,6 +29,10 @@ class Alien
         fill(0);
         stroke(this.color);
         ellipse(this.pos.x, this.pos.y, this.scl*2, this.scl);
+        var subScl = this.scl/4;
+        line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y-subScl)
+        line(this.pos.x-subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y+subScl)
+        line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x+subScl,this.pos.y+subScl)
         point(this.pos.x, this.pos.y);
         pop();
       }
@@ -67,50 +63,41 @@ class Alien
 
     checkCollision(x,y,radius)
     {
-      if(this.hidden)
+      var collide1, collide2;
+      if(radius)
       {
-        return false;
+        collide1 = dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius + radius)
+        collide2 = dist(this.pos.x+(this.scl*2),this.pos.y,x,y) <= (this.collideRadius + radius)
+
       }
       else
       {
-        var collide1, collide2;
-        if(radius)
-        {
-          collide1 = dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius + radius)
-          collide2 = dist(this.pos.x+(this.scl*2),this.pos.y,x,y) <= (this.collideRadius + radius)
-
-        }
-        else
-        {
-          collide1 = dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius)
-          collide2 = dist(this.pos.x+(this.scl*2),this.pos.y,x,y) <= (this.collideRadius)
-        }
-        return collide1 ||  collide2;
+        collide1 = dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius)
+        collide2 = dist(this.pos.x+(this.scl*2),this.pos.y,x,y) <= (this.collideRadius)
       }
+      return collide1 ||  collide2;
+    }
+
+    changeColorPreservingAlpha(colorIn)
+    {
+      this.color = color(red(colorIn), green(colorIn),blue(colorIn),alpha(this.color));
     }
 
     decrementColor()
     {
       var darkenAmount = 255/(this.maxHealth);
-      var newRed = red(this.color) - darkenAmount;
-      var newGreen = green(this.color) - darkenAmount;
-      var newBlue = blue(this.color) - darkenAmount;
-      newRed = newRed > -1 ? newRed : 0;
-      newGreen = newGreen > -1 ? newGreen : 0;
-      newBlue = newBlue > -1 ? newBlue : 0;
-      this.color = color(newRed, newGreen,newBlue);
+      var newAlpha = Math.max(0,alpha(this.color)-darkenAmount);
+      this.color = color(red(this.color), green(this.color),blue(this.color),newAlpha);
     }
 
     hit()
     {
-      if(!this.hidden)
-      {
         this.decrementColor();
+
         this.health -= 1;
         if(this.health <= 0)
         {
           this.deleteFlag = true;
         }
-      }
     }
 }

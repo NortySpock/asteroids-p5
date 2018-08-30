@@ -48,14 +48,6 @@ class Ship
                        0,        0-(scl/2)+CoG_offset,
                        0-(scl/2),0+CoG_offset ];
 
-    //update the lines that mark out the ship
-    // this.lines = [[this.coords[0],this.coords[1],this.coords[2],this.coords[3]],
-                  // [this.coords[2],this.coords[3],this.coords[4],this.coords[5]],
-                  // [this.coords[4],this.coords[5],this.coords[6],this.coords[7]],
-                  // [this.coords[0],this.coords[1],this.coords[6],this.coords[7]]];
-
-
-
 
         quad(this.coords[0],this.coords[1],
              this.coords[2],this.coords[3],
@@ -91,11 +83,7 @@ class Ship
       }
 
       this.gunOrientation = this.rotation + this.gunRotationOffset;
-      //this.gunPos = createVector(this.coords[0],this.coords[1]);
-      //this.gunPos = createVector(this.pos.x+this.coords[2],this.pos.y+this.coords[3]);
-      //this.gunPos = createVector(this.pos.x+this.coords[0],this.pos.y+this.coords[1]);
       this.gunPos = createVector(this.pos.x,this.pos.y);
-
     }
 
     thrust()

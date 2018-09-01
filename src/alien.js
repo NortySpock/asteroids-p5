@@ -16,9 +16,11 @@ class Alien
         this.scl = min(canvasHeight,canvasWidth) / 28;
         this.collideRadius = this.scl * 2;
         this.deleteFlag = false;
-        this.mass = 100;
-        this.maxForce = 100;
-        this.maxSpeed = 10;
+        this.accelRate = 1;
+        this.maxSpeed = 5;
+        this.targetHeadingRadians = 0;
+        this.patrolPoint1 = createVector(canvasWidth*(1/4),canvasHeight*(3/4));
+        this.patrolPoint2 = createVector(canvasWidth*(3/4),canvasHeight*(3/4));
     }
 
     render()
@@ -40,6 +42,20 @@ class Alien
 
     update()
     {
+      //determine heading
+      var targetPoint = this.patrolPoint2;
+      this.targetHeadingRadians =  Math.atan2(targetPoint.y - this.pos.y, targetPoint.x - this.pos.x);
+
+      var xcomponent =  this.accelRate * Math.sin(this.targetHeadingRadians);
+      var ycomponent = this.accelRate * -Math.cos(this.targetHeadingRadians);
+
+      this.vel.add(xcomponent,ycomponent);
+      this.vel = this.vel.limit(this.maxSpeed);
+
+
+
+
+      this.vel = this.vel.limit(this.maxSpeed); //speed limiter
       this.pos.add(this.vel);
 
       //appear on other edge if we go offscreen
@@ -88,6 +104,14 @@ class Alien
       var darkenAmount = 255/(this.maxHealth);
       var newAlpha = Math.max(0,alpha(this.color)-darkenAmount);
       this.color = color(red(this.color), green(this.color),blue(this.color),newAlpha);
+    }
+
+    graviticPull()
+    {
+      var xcomponent = this.thrustRate * Math.sin(radians(this.rotation));
+      var ycomponent = this.thrustRate * -Math.cos(radians(this.rotation));
+
+      this.vel.add(xcomponent,ycomponent);
     }
 
     hit()

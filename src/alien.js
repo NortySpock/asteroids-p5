@@ -65,13 +65,7 @@ class Alien
       //determine heading
       var targetPoint = this.patrolPointSW;
       this.targetPoint = targetPoint;
-      this.targetHeadingRadians =  this.calcHeadingRadians(this.pos, targetPoint)
-      
-
-      var xcomponent =  this.accelRate * -Math.sin(this.targetHeadingRadians);
-      var ycomponent = this.accelRate * Math.cos(this.targetHeadingRadians);
-
-      this.vel.add(xcomponent,ycomponent);
+      this.graviticPull(targetPoint);
 
       this.vel = this.vel.limit(this.maxSpeed); //speed limiter
       this.pos.add(this.vel);
@@ -124,12 +118,12 @@ class Alien
       this.color = color(red(this.color), green(this.color),blue(this.color),newAlpha);
     }
 
-    graviticPull()
+    graviticPull(targetPoint)
     {
-      var xcomponent = this.thrustRate * Math.sin(radians(this.rotation));
-      var ycomponent = this.thrustRate * -Math.cos(radians(this.rotation));
-
-      this.vel.add(xcomponent,ycomponent);
+      var targetAccelVector = createVector(0,0);
+      targetAccelVector.sub(targetPoint)
+      //targetAccelVector.normalize();
+      this.vel.sub(targetAccelVector);
     }
 
     hit()

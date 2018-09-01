@@ -7,7 +7,7 @@ var points = 0;
 var whiteTextColor = 255;
 var ship;
 var soundMgr;
-var debugMode = false;
+var debugMode = true;
 
 var asteroids = [];
 var protonBolts = [];
@@ -122,9 +122,12 @@ function draw() {
 
 function mousePressed()
 {
-    for(var i = aliens.length - 1; i >= 0; i--)
+    if(debugMode)
     {
-      aliens[i].hit();
+      for(var i = aliens.length - 1; i >= 0; i--)
+      {
+        aliens[i].hit();
+      }
     }
 }
 
@@ -161,6 +164,11 @@ function keyPressed() {
   {
     asteroids.push(new Asteroid());
   }
+  
+  if(key == 'K' && debugMode)
+  {
+    aliens.push(new Alien());
+  }
 };
 
 var updateDOM = function()
@@ -185,6 +193,18 @@ var updateDOM = function()
     // livesDom.innerHTML = "yvel:" + ship.yvel;
 }
 
+var addAsteroidsIfNeeded = function()
+{
+  if(asteroids.length <= 0)
+  {
+    var toAdd = 3 + (millis()/1000/60); //3 + number of minutes you have been playing
+    for(var i=0; i < toAdd;i++)
+    {
+      asteroids.push(new Asteroid())
+    }
+  }
+}
+
 function randomFromInterval(min,max){
     return Math.random()*(max-min+1)+min;
 }
@@ -200,13 +220,10 @@ function halfSecondUpdateLoop()
 }
 
 function oneSecondUpdateLoop() {
-  if(asteroids.length <= 0)
+  addAsteroidsIfNeeded();
+  for(var i = 0; i < aliens.length; i++)  
   {
-    var toAdd = 3 + (millis()/1000/60); //3 + number of minutes you have been playing
-    for(var i=0; i < toAdd;i++)
-    {
-      asteroids.push(new Asteroid())
-    }
+    console.log("Alien"+i+":health:"+str(aliens[i].health)+":heading:"+str(degrees(aliens[i].targetHeadingRadians)))
   }
 }
 

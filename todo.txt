@@ -1,6 +1,3 @@
-Alien max speed / force / mass / accel 
-p5.Vector.limit(number);
-
 Alien patrol route
 Alien chase behavior
 Alien short-range-death-ray

@@ -2,10 +2,10 @@ class Alien
 {
     constructor()
     {
-        this.pos = createVector(canvasWidth/4,canvasHeight/4);
+        this.pos = createVector(canvasWidth/2,canvasHeight/2);
         this.vel = createVector(0,0);
         this.maxHealth = 3 + (millis()/1000/60); //1 + number of minutes you have been playing
-        this.health = this.maxHealth;
+        this.health = int(this.maxHealth);
         this.cyan = color(0,255,255);
         this.magenta = color(255,0,255);
         this.color = this.magenta;
@@ -19,41 +19,59 @@ class Alien
         this.accelRate = 1;
         this.maxSpeed = 5;
         this.targetHeadingRadians = 0;
-        this.patrolPoint1 = createVector(canvasWidth*(1/4),canvasHeight*(3/4));
-        this.patrolPoint2 = createVector(canvasWidth*(3/4),canvasHeight*(3/4));
+        this.targetPoint;
+        this.patrolPointNW = createVector(canvasWidth*(1/4),canvasHeight*(1/4));
+        this.patrolPointN = createVector(canvasWidth*(2/4),canvasHeight*(1/4));
+        this.patrolPointNE = createVector(canvasWidth*(3/4),canvasHeight*(1/4));
+        
+        
+        this.patrolPointSW = createVector(canvasWidth*(1/4),canvasHeight*(3/4));
+        this.patrolPointS = createVector(canvasWidth*(2/4),canvasHeight*(3/4));        
+        this.patrolPointSE = createVector(canvasWidth*(3/4),canvasHeight*(3/4));
     }
 
     render()
     {
-      if(!this.hidden)
+      push();
+      fill(0);
+      stroke(this.color);
+      ellipse(this.pos.x, this.pos.y, this.scl*2, this.scl);
+      var subScl = this.scl/4;
+      line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y-subScl)
+      line(this.pos.x-subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y+subScl)
+      line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x+subScl,this.pos.y+subScl)
+      point(this.pos.x, this.pos.y);
+      
+      /* indicate patrol points */
+      point(this.patrolPointNW.x, this.patrolPointNW.y);
+      point(this.patrolPointN.x, this.patrolPointN.y);
+      point(this.patrolPointNE.x, this.patrolPointNE.y);
+      
+      point(this.patrolPointSW.x, this.patrolPointSW.y);
+      point(this.patrolPointS.x, this.patrolPointS.y);
+      point(this.patrolPointSE.x, this.patrolPointSE.y);
+      
+      /* indicate target heading */
+      if(this.targetPoint)
       {
-        push();
-        fill(0);
-        stroke(this.color);
-        ellipse(this.pos.x, this.pos.y, this.scl*2, this.scl);
-        var subScl = this.scl/4;
-        line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y-subScl)
-        line(this.pos.x-subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y+subScl)
-        line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x+subScl,this.pos.y+subScl)
-        point(this.pos.x, this.pos.y);
-        pop();
+        stroke(255,0,0);
+        line(this.pos.x,this.pos.y,this.targetPoint.x,this.targetPoint.y)
       }
+      pop();      
     }
 
     update()
     {
       //determine heading
-      var targetPoint = this.patrolPoint2;
-      this.targetHeadingRadians =  Math.atan2(targetPoint.y - this.pos.y, targetPoint.x - this.pos.x);
+      var targetPoint = this.patrolPointSW;
+      this.targetPoint = targetPoint;
+      this.targetHeadingRadians =  this.calcHeadingRadians(this.pos, targetPoint)
+      
 
-      var xcomponent =  this.accelRate * Math.sin(this.targetHeadingRadians);
-      var ycomponent = this.accelRate * -Math.cos(this.targetHeadingRadians);
+      var xcomponent =  this.accelRate * -Math.sin(this.targetHeadingRadians);
+      var ycomponent = this.accelRate * Math.cos(this.targetHeadingRadians);
 
       this.vel.add(xcomponent,ycomponent);
-      this.vel = this.vel.limit(this.maxSpeed);
-
-
-
 
       this.vel = this.vel.limit(this.maxSpeed); //speed limiter
       this.pos.add(this.vel);
@@ -123,5 +141,16 @@ class Alien
         {
           this.deleteFlag = true;
         }
+    }
+    
+    calcHeadingRadians(fromPoint,toPoint)
+    {
+      var angle = Math.atan2(toPoint.y - fromPoint.y, toPoint.x - fromPoint.x);
+      if(angle < 0)
+      {
+          angle = (2*Math.PI) - (-angle);
+
+      }
+      return angle;
     }
 }

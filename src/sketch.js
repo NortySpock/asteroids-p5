@@ -4,7 +4,7 @@ var canvasWidth = 600;
 var canvasHeight = 600;
 var blackSpaceFill = 0;
 var points = 0;
-var whiteTextColor = 255;
+var textColor = 255;
 var ship;
 var soundMgr;
 var debugMode = false;
@@ -13,13 +13,22 @@ var asteroids = [];
 var protonBolts = [];
 var aliens = [];
 
+var points_string = '';
+var points_string_location;
+var FPS_string  = '';
+var FPS_string_location;
+
+
 function reset() {
     var canvas = createCanvas(canvasWidth, canvasHeight);
     canvas.parent('sketch-holder');
 
     frameRate(60);
-    textSize(60);
     background(blackSpaceFill);
+
+    textSize(14);
+    //textStyle(BOLD);
+    textFont('Courier New');
 
     points = 0;
 
@@ -33,6 +42,9 @@ function reset() {
     soundMgr = new SoundManager();
     setInterval(halfSecondUpdateLoop,500);
     setInterval(oneSecondUpdateLoop,1000);
+
+    points_string_location = createVector(canvasWidth*(5/6),20);
+    FPS_string_location = createVector(10,20);
 }
 
 
@@ -45,6 +57,8 @@ function draw() {
     handleKeyInput();
 
     background(blackSpaceFill);
+
+    renderText();
 
     //handle all the asteroids
     for(var i = asteroids.length -1; i >= 0; i--)
@@ -163,28 +177,6 @@ function keyPressed() {
   }
 };
 
-var updateDOM = function()
-{
-    var fpsDom = document.getElementById("fps");
-    var fps = frameRate();
-    fpsDom.innerHTML = "FPS:" + fps.toFixed(0);
-
-    //update surrounding HTML
-    var pointsDom = document.getElementById("points");
-    pointsDom.innerHTML = "Points: " + points;
-
-
-    // var livesDom = document.getElementById("rotation");
-    // livesDom.innerHTML = "rotation:" + ship.rotation;
-
-
-    // var livesDom = document.getElementById("xvel");
-    // livesDom.innerHTML = "xvel:" + ship.xvel;
-
-    // var livesDom = document.getElementById("yvel");
-    // livesDom.innerHTML = "yvel:" + ship.yvel;
-}
-
 function randomFromInterval(min,max){
     return Math.random()*(max-min+1)+min;
 }
@@ -194,9 +186,20 @@ function coinFlip()
   return (int(Math.random() * 2) == 0);
 }
 
-function halfSecondUpdateLoop()
+function UI_text_update()
 {
-  updateDOM();
+  var fps = frameRate();
+  FPS_string = "FPS:" + fps.toFixed(0);
+
+  points_string = "Points: " + points;
+}
+
+function renderText()
+{
+    stroke(textColor);
+    fill(textColor);
+    text(FPS_string, FPS_string_location.x,FPS_string_location.y);
+    text(points_string,points_string_location.x,points_string_location.y);
 }
 
 function oneSecondUpdateLoop() {

@@ -221,9 +221,5 @@ function halfSecondUpdateLoop()
 
 function oneSecondUpdateLoop() {
   addAsteroidsIfNeeded();
-  for(var i = 0; i < aliens.length; i++)  
-  {
-    console.log("Alien"+i+":health:"+str(aliens[i].health)+":heading:"+str(degrees(aliens[i].targetHeadingRadians)))
-  }
 }
 

@@ -18,10 +18,17 @@ class Alien
         this.deleteFlag = false;
         this.accelRate = 0.75;
         this.maxSpeed = 2;
-        this.targetHeadingRadians = 0;
-        this.targetPoint;
-        this.patrolPointNW = createVector(canvasWidth*(1/4),canvasHeight*(1/4));
-        this.patrolPointN = createVector(canvasWidth*(2/4),canvasHeight*(1/4));        
+
+        this.angry = false;
+        
+        this.patrolPoint1 = createVector(randomFromInterval(0,canvasWidth),randomFromInterval(0,canvasHeight));
+        
+        //create second patrol point towards the center
+        this.patrolPoint2 = p5.Vector.sub(this.patrolPoint1,createVector(canvasWidth/2, canvasHeight/2))
+        this.patrolPoint2.normalize();
+        this.patrolPoint2.mult(2);
+        
+        this.targetPoint = this.patrolPoint1;
     }
 
     render()
@@ -35,13 +42,15 @@ class Alien
       line(this.pos.x-subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y+subScl)
       line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x+subScl,this.pos.y+subScl)
       point(this.pos.x, this.pos.y);
+      
+      line(this.patrolPoint1.x,this.patrolPoint1.y,this.patrolPoint2.x,this.patrolPoint2.y)
       pop();      
     }
 
     update()
     {
       //determine heading
-      var targetPoint = createVector(50,50);
+      var targetPoint = this.patrolPoint1;
       this.targetPoint = targetPoint;
       this.graviticPull(targetPoint);
 
@@ -96,6 +105,13 @@ class Alien
         if(this.health <= 0)
         {
           this.deleteFlag = true;
+        }
+        
+        //get angry and change color
+        if(!this.angry)
+        {
+          this.angry = true;
+          this.changeColorPreservingAlpha(this.cyan);
         }
     }
     

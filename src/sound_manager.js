@@ -28,6 +28,25 @@ class SoundManager
 
         this.raygunEnvelope = new p5.Env();
         this.raygunEnvelope.setADSR(0.001, 0.02, 0.05, 0.05);
+
+        this.alien_approach_oscillator = new p5.Oscillator();
+        this.alien_approach_oscillator.setType('sine');
+        this.alien_approach_oscillator.freq(261.63);
+        this.alien_approach_oscillator.amp(0)
+        this.alien_approach_oscillator.start();
+
+        this.alien_approach_envelope = new p5.Env();
+        this.alien_approach_envelope.setADSR(0.001,1, 0.3, 1);
+
+
+        this.alien_angry_oscillator = new p5.Oscillator();
+        this.alien_angry_oscillator.setType('square');
+        this.alien_angry_oscillator.freq(493.88);
+        this.alien_angry_oscillator.amp(0)
+        this.alien_angry_oscillator.start();
+        this.alien_angry_envelope = new p5.Env();
+        this.alien_angry_envelope.setADSR(0.001,1, 0.3, 1);
+
     }
 
     queueSound(sound)
@@ -57,16 +76,22 @@ class SoundManager
             }
         }
     }
-    
+
     playSound(sound)
     {
-        switch(sound) 
+        switch(sound)
         {
         case 'proton_bolt':
-            this.raygunEnvelope.play(this.raygunOscillator);    
+            this.raygunEnvelope.play(this.raygunOscillator);
             break;
         case 'asteroid_break':
             this.asteroidBreakEnvelope.play(this.brownNoise);
+            break;
+        case 'alien_approach':
+            this.alien_approach_envelope.play(this.alien_approach_oscillator);
+            break;
+        case 'alien_angry':
+            this.alien_angry_envelope.play(this.alien_angry_oscillator);
             break;
         default:
             console.log('Sound not found:'+sound);

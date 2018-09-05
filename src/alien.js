@@ -13,7 +13,7 @@ class Alien
         this.max_cloak_time_millis=3000;
         this.show_timer = 0;
         this.gun_warmup_timer = 0;
-        this.scl = min(canvasHeight,canvasWidth) / 28;
+        this.scl = min(canvasHeight,canvasWidth) / 23;
         this.collideRadius = this.scl * 2;
         this.deleteFlag = false;
         this.accelRate = 0.75;

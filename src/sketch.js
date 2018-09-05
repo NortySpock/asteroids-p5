@@ -174,14 +174,19 @@ function keyPressed() {
     soundMgr.queueSound('proton_bolt');
   }
 
-  if(key == 'P' && debugMode)
-  {
-    asteroids.push(new Asteroid());
-  }
-  
   if(key == 'K' && debugMode)
   {
     aliens.push(new Alien());
+  }
+
+  if(key == 'I' && debugMode)
+  {
+    soundMgr.queueSound('alien_approach');
+  }
+
+  if(key == 'O' && debugMode)
+  {
+    soundMgr.queueSound('alien_angry');
   }
 };
 

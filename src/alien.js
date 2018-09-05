@@ -14,20 +14,21 @@ class Alien
         this.show_timer = 0;
         this.gun_warmup_timer = 0;
         this.scl = min(canvasHeight,canvasWidth) / 23;
-        this.collideRadius = this.scl * 2;
+        this.collideRadius = this.scl;
         this.deleteFlag = false;
         this.accelRate = 0.75;
         this.maxSpeed = 2;
+        this.patrolMinApproach = 1;
 
         this.angry = false;
-        
+
         this.patrolPoint1 = createVector(randomFromInterval(0,canvasWidth),randomFromInterval(0,canvasHeight));
-        
+
         //create second patrol point towards the center
         this.patrolPoint2 = p5.Vector.sub(this.patrolPoint1,createVector(canvasWidth/2, canvasHeight/2))
         this.patrolPoint2.normalize();
         this.patrolPoint2.mult(2);
-        
+
         this.targetPoint = this.patrolPoint1;
     }
 
@@ -42,17 +43,35 @@ class Alien
       line(this.pos.x-subScl,this.pos.y-subScl, this.pos.x-subScl,this.pos.y+subScl)
       line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x+subScl,this.pos.y+subScl)
       point(this.pos.x, this.pos.y);
-      
+
       line(this.patrolPoint1.x,this.patrolPoint1.y,this.patrolPoint2.x,this.patrolPoint2.y)
-      pop();      
+      pop();
     }
 
     update()
     {
-      //determine heading
-      var targetPoint = this.patrolPoint1;
-      this.targetPoint = targetPoint;
-      this.graviticPull(targetPoint);
+      if(!this.angry)
+      {
+        //got close enough to patrol point, switch
+        if(this.checkCollision(this.targetPoint.x,this.targetPoint.y,this.patrolMinApproach))
+        {
+          if(this.targetPoint == this.patrolPoint1)
+          {
+            this.targetPoint = this.patrolPoint2;
+          }
+          else
+          {
+            this.targetPoint = this.patrolPoint1;
+          }
+        }
+        //move towards patrol point
+        this.graviticPull(this.targetPoint);
+
+      } else
+      {
+        //figure out chase code
+        //this.targetPoint = ship.pos;
+      }
 
       this.vel = this.vel.limit(this.maxSpeed); //speed limiter
       this.pos.add(this.vel);
@@ -91,7 +110,7 @@ class Alien
 
     graviticPull(targetPoint)
     {
-      var targetAccelVector = p5.Vector.sub(targetPoint,this.pos)      
+      var targetAccelVector = p5.Vector.sub(targetPoint,this.pos)
       targetAccelVector.normalize();
       targetAccelVector.mult(this.accelRate);
       this.vel.add(targetAccelVector);
@@ -106,7 +125,7 @@ class Alien
         {
           this.deleteFlag = true;
         }
-        
+
         //get angry and change color
         if(!this.angry)
         {
@@ -114,7 +133,7 @@ class Alien
           this.changeColorPreservingAlpha(this.cyan);
         }
     }
-    
+
     calcHeadingRadians(fromPoint,toPoint)
     {
       var angle = Math.atan2(toPoint.y - fromPoint.y, toPoint.x - fromPoint.x);
@@ -125,7 +144,7 @@ class Alien
       }
       return angle;
     }
-    
+
     handleGoingOffscreen()
     {
       //appear on other edge if we go offscreen

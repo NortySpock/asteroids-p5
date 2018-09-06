@@ -18,7 +18,7 @@ class Alien
         this.deleteFlag = false;
         this.accelRate = 0.75;
         this.maxSpeed = 2;
-        this.patrolMinApproach = 1;
+        this.patrolMinApproach = 0;
 
         this.angry = false;
 
@@ -69,8 +69,8 @@ class Alien
 
       } else
       {
-        //figure out chase code
-        //this.targetPoint = ship.pos;
+        this.targetPoint = ship.pos;
+        this.graviticPull(this.targetPoint);
       }
 
       this.vel = this.vel.limit(this.maxSpeed); //speed limiter
@@ -85,13 +85,13 @@ class Alien
       if(radius)
       {
         collide1 = dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius + radius)
-        collide2 = dist(this.pos.x+(this.scl*2),this.pos.y,x,y) <= (this.collideRadius + radius)
+        collide2 = dist(this.pos.x+(this.scl),this.pos.y,x,y) <= (this.collideRadius + radius)
 
       }
       else
       {
         collide1 = dist(this.pos.x,this.pos.y,x,y) <= (this.collideRadius)
-        collide2 = dist(this.pos.x+(this.scl*2),this.pos.y,x,y) <= (this.collideRadius)
+        collide2 = dist(this.pos.x+(this.scl),this.pos.y,x,y) <= (this.collideRadius)
       }
       return collide1 ||  collide2;
     }
@@ -126,23 +126,22 @@ class Alien
           this.deleteFlag = true;
         }
 
-        //get angry and change color
-        if(!this.angry)
-        {
-          this.angry = true;
-          this.changeColorPreservingAlpha(this.cyan);
-        }
+        //get angry
+        this.getAngry();
     }
 
-    calcHeadingRadians(fromPoint,toPoint)
+    getAngry()
     {
-      var angle = Math.atan2(toPoint.y - fromPoint.y, toPoint.x - fromPoint.x);
-      if(angle < 0)
+      if(!this.angry)
       {
-          angle = (2*Math.PI) - (-angle);
-
+        this.angry = true;
+        this.changeColorPreservingAlpha(this.cyan);
       }
-      return angle;
+    }
+
+    lineCrossed()
+    {
+      return false;
     }
 
     handleGoingOffscreen()

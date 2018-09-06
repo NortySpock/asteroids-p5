@@ -36,10 +36,13 @@ function reset() {
     asteroids = [];
     asteroids.push(new Asteroid())
 
+    soundMgr = new SoundManager();
+
     aliens = [];
     aliens.push(new Alien());
+    soundMgr.queueSound('alien_approach')
 
-    soundMgr = new SoundManager();
+
     setInterval(halfSecondUpdateLoop,500);
     setInterval(oneSecondUpdateLoop,1000);
 
@@ -81,7 +84,12 @@ function draw() {
 
     for(var i = aliens.length - 1; i >= 0; i--)
     {
-      aliens[i].update();
+      aliens[i].update()
+      if(aliens[i].lineCrossed())
+      {
+        aliens[j].getAngry()
+        soundMgr.queueSound('alien_angry');
+      }
       aliens[i].render();
 
       if(aliens[i].deleteFlag)
@@ -93,9 +101,9 @@ function draw() {
     //check for collisions
     for (var i = protonBolts.length - 1; i >= 0; --i)
     {
+      let bolt = protonBolts[i];
       for(var j = asteroids.length - 1; j >= 0; j--)
       {
-        var bolt = protonBolts[i];
         if(asteroids[j].checkCollision(bolt.pos.x,bolt.pos.y))
         {
           //check if the rock breaks
@@ -115,6 +123,20 @@ function draw() {
 
           points += 10;
           soundMgr.queueSound('asteroid_break');
+        }
+      }
+
+      for(var j = aliens.length - 1; j >= 0; j--)
+      {
+        if(aliens[j].checkCollision(bolt.pos.x,bolt.pos.y))
+        {
+          if(!aliens[j].angry)
+          {
+            soundMgr.queueSound('alien_angry');
+          }
+          aliens[j].hit();
+
+          protonBolts[i].deleteFlag = true;
         }
       }
 
@@ -177,16 +199,7 @@ function keyPressed() {
   if(key == 'K' && debugMode)
   {
     aliens.push(new Alien());
-  }
-
-  if(key == 'I' && debugMode)
-  {
     soundMgr.queueSound('alien_approach');
-  }
-
-  if(key == 'O' && debugMode)
-  {
-    soundMgr.queueSound('alien_angry');
   }
 };
 

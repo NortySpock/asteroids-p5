@@ -4,7 +4,7 @@ var canvasWidth = 600;
 var canvasHeight = 600;
 var blackSpaceFill = 0;
 var points = 0;
-var textColor = 255;
+var textColor;
 var ship;
 var soundMgr;
 var debugMode = true;
@@ -17,7 +17,8 @@ var points_string = '';
 var points_string_location;
 var FPS_string  = '';
 var FPS_string_location;
-
+var Game_Over_string = 'Game Over. Press [Enter] to start again.';
+var Game_Over_string_location;
 
 function reset() {
     var canvas = createCanvas(canvasWidth, canvasHeight);
@@ -28,6 +29,7 @@ function reset() {
 
     textSize(14);
     //textStyle(BOLD);
+    textColor = 255;
     textFont('Courier New');
 
     points = 0;
@@ -49,6 +51,8 @@ function reset() {
     points_string_location = createVector(canvasWidth*(5/6),20);
     FPS_string_location = createVector(10,20);
     protonBolts = [];
+
+    Game_Over_string_location = createVector(canvasWidth/5,canvasHeight/2);
 }
 
 
@@ -151,6 +155,12 @@ function draw() {
     //render ship last so it overlays everything
     ship.update();
     ship.render();
+
+    if(ship.dead)
+    {
+      textColor = color(255,0,0);
+      text(Game_Over_string,Game_Over_string_location.x,Game_Over_string_location.y);
+    }
 
     //play all the sounds we've built up this frame
     soundMgr.playAllQueuedSounds();

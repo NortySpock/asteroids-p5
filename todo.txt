@@ -1,3 +1,4 @@
 Alien short-range-death-ray
-Player ship death
+Fix patrol route
 Game over screen
+Reset button

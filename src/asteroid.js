@@ -63,9 +63,6 @@ class Asteroid
         if(!this.destroyed)
         {
             stroke(255);
-        } else
-        {
-            stroke(255,0,0); //red
         }
 
         strokeWeight(1);

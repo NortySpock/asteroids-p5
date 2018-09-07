@@ -40,7 +40,7 @@ function reset() {
 
     aliens = [];
     aliens.push(new Alien());
-    soundMgr.queueSound('alien_approach')
+    //soundMgr.queueSound('alien_approach');
 
 
     setInterval(halfSecondUpdateLoop,500);
@@ -190,16 +190,21 @@ var handleKeyInput = function()
 };
 
 function keyPressed() {
-  if(key == ' ')
+  if(key == ' ' && !ship.dead)
   {
     protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
     soundMgr.queueSound('proton_bolt');
   }
 
-  if(key == 'K' && debugMode)
+  if(key == 'L' && debugMode)
   {
     aliens.push(new Alien());
     soundMgr.queueSound('alien_approach');
+  }
+
+  if(key == 'K' && debugMode)
+  {
+    ship.kill()
   }
 };
 

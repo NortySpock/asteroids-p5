@@ -15,6 +15,7 @@ class Ship
         this.showThrusterFiring = false;
         this.coords = [];
         this.scl = min(canvasHeight,canvasWidth) / 30;
+        this.dead = false;
         //this.lines = [];
     }
 
@@ -32,6 +33,10 @@ class Ship
         if(this.showThrusterFiring)
         {
           stroke(0,255,255); //cyan
+        }
+        else if(this.dead)
+        {
+          stroke(255,0,0,128); //dark red
         }
         else
         {
@@ -88,32 +93,43 @@ class Ship
 
     thrust()
     {
+      if(!this.dead)
+      {
+        var xcomponent = this.thrustRate * Math.sin(radians(this.rotation));
+        var ycomponent = this.thrustRate * -Math.cos(radians(this.rotation));
 
-      var xcomponent = this.thrustRate * Math.sin(radians(this.rotation));
-      var ycomponent = this.thrustRate * -Math.cos(radians(this.rotation));
+        this.vel.add(xcomponent,ycomponent);
 
-      this.vel.add(xcomponent,ycomponent);
-
-      this.showThrusterFiring = true;
+        this.showThrusterFiring = true;
+      }
     }
 
     retro()
     {
-      this.vel.mult(this.retroMult);
+      if(!this.dead)
+      {
+        this.vel.mult(this.retroMult);
+      }
     }
 
     rotateClockwise()
     {
-      this.rotation += this.rotationRate;
+      if(!this.dead)
+      {
+        this.rotation += this.rotationRate;
+      }
     }
 
     rotateCounterClockwise()
     {
-      this.rotation -= this.rotationRate;
+      if(!this.dead)
+      {
+        this.rotation -= this.rotationRate;
+      }
     }
 
-    // getCollisionLines()
-    // {
-      // return this.lines;
-    // }
+    kill()
+    {
+      this.dead = true;
+    }
 }

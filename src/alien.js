@@ -25,11 +25,14 @@ class Alien
         this.patrolPoint1 = createVector(randomFromInterval(0,canvasWidth),randomFromInterval(0,canvasHeight));
 
         //create second patrol point towards the center
-        this.patrolPoint2 = p5.Vector.sub(this.patrolPoint1,createVector(canvasWidth/2, canvasHeight/2))
+        this.patrolPoint2 = p5.Vector.sub(this.patrolPoint1,createVector(canvasWidth/2, canvasHeight/2));
         this.patrolPoint2.normalize();
         this.patrolPoint2.mult(2);
 
         this.targetPoint = this.patrolPoint1;
+
+        this.deathRayMaxRange = 5;
+        this.deathRayWidth = 0;
     }
 
     render()
@@ -45,6 +48,14 @@ class Alien
       point(this.pos.x, this.pos.y);
 
       line(this.patrolPoint1.x,this.patrolPoint1.y,this.patrolPoint2.x,this.patrolPoint2.y)
+
+      //draw deathray
+      if(this.angry)
+      {
+        fill(this.cyan);
+        stroke(this.cyan);
+        triangle(this.pos.x,this.pos.y,this.pos.x+this.deathRayWidth,this.pos.y, this.pos.x,this.pos.y+this.deathRayWidth);
+      }
       pop();
     }
 
@@ -71,6 +82,7 @@ class Alien
       {
         this.targetPoint = ship.pos;
         this.graviticPull(this.targetPoint);
+        this.deathRayWidth = randomFromInterval(1,5);
       }
 
       this.vel = this.vel.limit(this.maxSpeed); //speed limiter

@@ -48,6 +48,7 @@ function reset() {
 
     points_string_location = createVector(canvasWidth*(5/6),20);
     FPS_string_location = createVector(10,20);
+    protonBolts = [];
 }
 
 
@@ -205,6 +206,11 @@ function keyPressed() {
   if(key == 'K' && debugMode)
   {
     ship.kill()
+  }
+
+  if(keyCode == ENTER || keyCode == RETURN)
+  {
+    reset();
   }
 };
 

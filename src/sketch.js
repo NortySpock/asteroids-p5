@@ -48,7 +48,7 @@ function reset() {
     setInterval(halfSecondUpdateLoop,500);
     setInterval(oneSecondUpdateLoop,1000);
 
-    points_string_location = createVector(canvasWidth*(5/6),20);
+    points_string_location = createVector(canvasWidth*(19/24),20);
     FPS_string_location = createVector(10,20);
     protonBolts = [];
 

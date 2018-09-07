@@ -2,7 +2,16 @@ class Alien
 {
     constructor()
     {
-        this.pos = createVector(canvasWidth/2,canvasHeight/2);
+        //x or y random position
+        if(coinFlip())
+        {
+          this.pos = createVector(randomFromInterval(0,canvasWidth),0);
+        }
+        else
+        {
+          this.pos = createVector(0, randomFromInterval(0,canvasHeight));
+        }
+
         this.vel = createVector(0,0);
         this.maxHealth = 3 + (millis()/1000/60); //1 + number of minutes you have been playing
         this.health = int(this.maxHealth);
@@ -24,10 +33,8 @@ class Alien
 
         this.patrolPoint1 = createVector(randomFromInterval(0,canvasWidth),randomFromInterval(0,canvasHeight));
 
-        //create second patrol point towards the center
-        this.patrolPoint2 = p5.Vector.sub(this.patrolPoint1,createVector(canvasWidth/2, canvasHeight/2));
-        this.patrolPoint2.normalize();
-        this.patrolPoint2.mult(2);
+        //create second patrol point at the center
+        this.patrolPoint2 =  createVector(canvasWidth/2, canvasHeight/2);
 
         this.targetPoint = this.patrolPoint1;
 
@@ -136,6 +143,7 @@ class Alien
         if(this.health <= 0)
         {
           this.deleteFlag = true;
+          points += 1000
         }
 
         //get angry

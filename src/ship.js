@@ -60,7 +60,8 @@ class Ship
              this.coords[6],this.coords[7]);
 
         pop();
-
+        noFill()
+        //ellipse(this.pos.x,this.pos.y,this.scl*2.5);
         //reset flag for next cycle
         this.showThrusterFiring = false;
     }

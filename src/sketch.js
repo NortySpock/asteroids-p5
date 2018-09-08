@@ -90,11 +90,11 @@ function draw() {
     for(var i = aliens.length - 1; i >= 0; i--)
     {
       aliens[i].update()
-      if(aliens[i].lineCrossed())
+      if(aliens[i].angry && dist(aliens[i].pos.x,aliens[i].pos.y,ship.pos.x,ship.pos.y) < aliens[i].deathRayMaxRange-aliens[i].scl)
       {
-        aliens[j].getAngry()
-        soundMgr.queueSound('alien_angry');
+        ship.kill();
       }
+
       aliens[i].render();
 
       if(aliens[i].deleteFlag)

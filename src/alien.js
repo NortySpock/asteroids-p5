@@ -38,8 +38,9 @@ class Alien
 
         this.targetPoint = this.patrolPoint1;
 
-        this.deathRayMaxRange = 5;
+        this.deathRayMaxRange = this.scl*2.5;
         this.deathRayWidth = 0;
+
     }
 
     render()
@@ -54,14 +55,28 @@ class Alien
       line(this.pos.x+subScl,this.pos.y-subScl, this.pos.x+subScl,this.pos.y+subScl)
       point(this.pos.x, this.pos.y);
 
-      line(this.patrolPoint1.x,this.patrolPoint1.y,this.patrolPoint2.x,this.patrolPoint2.y)
-
       //draw deathray
       if(this.angry)
       {
-        fill(this.cyan);
+        var deathRayTarget = p5.Vector.sub(this.pos,ship.pos);
+        deathRayTarget.normalize();
+        deathRayTarget.mult(5);
+
+        var slope = (this.pos.y-ship.pos.x) / (this.pos.x-ship.pos.x);
+
+
         stroke(this.cyan);
+        noFill()
+        ellipse(this.pos.x,this.pos.y,this.deathRayMaxRange); //mock out max range
+        fill(this.cyan);
         triangle(this.pos.x,this.pos.y,this.pos.x+this.deathRayWidth,this.pos.y, this.pos.x,this.pos.y+this.deathRayWidth);
+
+        stroke(255,0,0); //r
+        line(ship.pos.x,ship.pos.y,this.pos.x,this.pos.y);
+        stroke(0,255,0); //g
+        line(this.pos.x,this.pos.y,deathRayTarget.x,deathRayTarget.y);
+
+
       }
       pop();
     }

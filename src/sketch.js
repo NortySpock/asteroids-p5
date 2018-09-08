@@ -213,3 +213,6 @@ function oneSecondUpdateLoop() {
   }
 }
 
+function halfSecondUpdateLoop(){
+  UI_text_update();
+}

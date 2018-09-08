@@ -20,7 +20,7 @@ var FPS_string_location;
 var Game_Over_string = 'Game Over. Press [Enter] to start again.';
 var Game_Over_string_location;
 var nextAlienSpawnTime = 0;
-var alienSpawnRateInSeconds = 90;
+var alienSpawnRateInSeconds = 70;
 
 function reset() {
     var canvas = createCanvas(canvasWidth, canvasHeight);
@@ -244,8 +244,9 @@ var addAliensIfNeeded = function()
   var currentMillis = millis();
   if(nextAlienSpawnTime < 1)
   {
-    nextAlienSpawnTime = currentMillis + alienSpawnRateInSeconds*1000;
-  } else if (currentMillis > nextAlienSpawnTime)
+    nextAlienSpawnTime = currentMillis + 20*1000;
+  } 
+  if (currentMillis > nextAlienSpawnTime)
   {
     aliens.push(new Alien());
     soundMgr.queueSound('alien_approach');

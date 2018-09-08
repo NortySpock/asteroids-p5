@@ -19,6 +19,8 @@ var FPS_string  = '';
 var FPS_string_location;
 var Game_Over_string = 'Game Over. Press [Enter] to start again.';
 var Game_Over_string_location;
+var nextAlienSpawnTime = 0;
+var alienSpawnRateInSeconds = 90;
 
 function reset() {
     var canvas = createCanvas(canvasWidth, canvasHeight);
@@ -26,6 +28,7 @@ function reset() {
 
     frameRate(60);
     background(blackSpaceFill);
+    nextAlienSpawnTime = 0;
 
     textSize(14);
     //textStyle(BOLD);
@@ -236,6 +239,20 @@ var addAsteroidsIfNeeded = function()
   }
 }
 
+var addAliensIfNeeded = function()
+{
+  var currentMillis = millis();
+  if(nextAlienSpawnTime < 1)
+  {
+    nextAlienSpawnTime = currentMillis + alienSpawnRateInSeconds*1000;
+  } else if (currentMillis > nextAlienSpawnTime)
+  {
+    aliens.push(new Alien());
+    soundMgr.queueSound('alien_approach');
+    nextAlienSpawnTime = currentMillis + alienSpawnRateInSeconds*1000;
+  }
+}
+
 
 function randomFromInterval(min,max){
     return Math.random()*(max-min+1)+min;
@@ -264,6 +281,14 @@ function renderText()
 
 function oneSecondUpdateLoop() {
   addAsteroidsIfNeeded();
+  addAliensIfNeeded();
+  if(ship.dead)
+  {
+    for(var i = aliens.length - 1; i >= 0; i--)
+    {
+      aliens[i].calm();
+    }
+  }
 }
 
 function halfSecondUpdateLoop(){

@@ -179,6 +179,12 @@ class Alien
       return false;
     }
 
+    calm()
+    {
+      this.angry = false;
+      this.changeColorPreservingAlpha(this.magenta);
+    }
+
     handleGoingOffscreen()
     {
       //appear on other edge if we go offscreen

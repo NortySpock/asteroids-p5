@@ -44,9 +44,6 @@ function reset() {
     soundMgr = new SoundManager();
 
     aliens = [];
-    aliens.push(new Alien());
-    //soundMgr.queueSound('alien_approach');
-
 
     setInterval(halfSecondUpdateLoop,500);
     setInterval(oneSecondUpdateLoop,1000);

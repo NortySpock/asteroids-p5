@@ -39,7 +39,8 @@ class Alien
         this.targetPoint = this.patrolPoint1;
 
         this.deathRayMaxRange = this.scl*2.5;
-        this.deathRayWidth = 0;
+        this.deathRayWidth = 10;
+        this.deathRaySpread = 40; //degrees
 
     }
 
@@ -62,21 +63,35 @@ class Alien
         deathRayTarget.normalize();
         deathRayTarget.mult(5);
 
-        var slope = (this.pos.y-ship.pos.x) / (this.pos.x-ship.pos.x);
+        //var slope = (this.pos.y-ship.pos.y) / (this.pos.x-ship.pos.x);
+        var midpoint = createVector((ship.pos.x+this.pos.x)/2,(ship.pos.y+this.pos.y)/2);
+        var new_y = this.deathRayWidth*slope+midpoint.y;
+        var new_x = this.deathRayWidth*slope+midpoint.y;
+        
+        // y=mx+b
 
-
+        var xs = this.pos.x-ship.pos.x;
+        var ys = this.pos.y-ship.pos.y;
+        var new_slope = ys/xs;
+        
+        print(new_slope)
         stroke(this.cyan);
         noFill()
         ellipse(this.pos.x,this.pos.y,this.deathRayMaxRange); //mock out max range
         fill(this.cyan);
-        triangle(this.pos.x,this.pos.y,this.pos.x+this.deathRayWidth,this.pos.y, this.pos.x,this.pos.y+this.deathRayWidth);
+        
+        
+        
+        triangle(this.pos.x,this.pos.y,new_x,new_y, midpoint.x,midpoint.y);
 
         stroke(255,0,0); //r
         line(ship.pos.x,ship.pos.y,this.pos.x,this.pos.y);
         stroke(0,255,0); //g
         line(this.pos.x,this.pos.y,deathRayTarget.x,deathRayTarget.y);
-
-
+        stroke(0,0,255)
+        point(midpoint.x,midpoint.y);
+        stroke(this.magenta);
+        point(midpoint.x,midpoint.y);
       }
       pop();
     }

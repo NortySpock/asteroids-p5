@@ -173,7 +173,7 @@ function mousePressed()
     {
       for(var i = aliens.length - 1; i >= 0; i--)
       {
-        aliens[i].hit();
+        aliens[i].getAngry();
       }
     }
 }

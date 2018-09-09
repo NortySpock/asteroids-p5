@@ -40,8 +40,8 @@ class Alien
 
         this.deathRayMaxRange = this.scl*2.5;
         this.deathRayWidth = 10;
-        this.deathRaySpread = 40; //degrees
-
+        this.deathRaySpreadMin = 10; //degrees
+        this.deathRaySpreadMax = 15; //degrees
     }
 
     render()
@@ -59,39 +59,26 @@ class Alien
       //draw deathray
       if(this.angry)
       {
-        var deathRayTarget = p5.Vector.sub(this.pos,ship.pos);
-        deathRayTarget.normalize();
-        deathRayTarget.mult(5);
-
-        //var slope = (this.pos.y-ship.pos.y) / (this.pos.x-ship.pos.x);
+        var deathRaySpread = randomFromInterval(this.deathRaySpreadMin,this.deathRaySpreadMax);
+        var targetHeading = atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
         var midpoint = createVector((ship.pos.x+this.pos.x)/2,(ship.pos.y+this.pos.y)/2);
-        var new_y = this.deathRayWidth*slope+midpoint.y;
-        var new_x = this.deathRayWidth*slope+midpoint.y;
-        
-        // y=mx+b
 
-        var xs = this.pos.x-ship.pos.x;
-        var ys = this.pos.y-ship.pos.y;
-        var new_slope = ys/xs;
-        
-        print(new_slope)
         stroke(this.cyan);
         noFill()
-        ellipse(this.pos.x,this.pos.y,this.deathRayMaxRange); //mock out max range
+        //ellipse(this.pos.x,this.pos.y,this.deathRayMaxRange); //mock out max range
         fill(this.cyan);
-        
-        
-        
-        triangle(this.pos.x,this.pos.y,new_x,new_y, midpoint.x,midpoint.y);
 
-        stroke(255,0,0); //r
-        line(ship.pos.x,ship.pos.y,this.pos.x,this.pos.y);
-        stroke(0,255,0); //g
-        line(this.pos.x,this.pos.y,deathRayTarget.x,deathRayTarget.y);
-        stroke(0,0,255)
-        point(midpoint.x,midpoint.y);
-        stroke(this.magenta);
-        point(midpoint.x,midpoint.y);
+        var plusDeathRayPoint = p5.Vector.fromAngle(targetHeading+radians(deathRaySpread));
+        plusDeathRayPoint.normalize();
+        plusDeathRayPoint.mult(this.deathRayMaxRange-this.scl);
+        plusDeathRayPoint.add(this.pos);
+
+        var minusDeathRayPoint = p5.Vector.fromAngle(targetHeading-radians(deathRaySpread));
+        minusDeathRayPoint.normalize();
+        minusDeathRayPoint.mult(this.deathRayMaxRange-this.scl);
+        minusDeathRayPoint.add(this.pos);
+
+        triangle(this.pos.x,this.pos.y,plusDeathRayPoint.x,plusDeathRayPoint.y, minusDeathRayPoint.x,minusDeathRayPoint.y);
       }
       pop();
     }

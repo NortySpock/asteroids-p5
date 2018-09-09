@@ -7,7 +7,8 @@ var points = 0;
 var textColor;
 var ship;
 var soundMgr;
-var debugMode = true;
+var debugMode = false;
+var frameDebug = false;
 
 var asteroids = [];
 var protonBolts = [];
@@ -164,18 +165,18 @@ function draw() {
 
     //play all the sounds we've built up this frame
     soundMgr.playAllQueuedSounds();
+
+      //freeze for analysis
+      if(frameDebug)
+      {
+        throw 'freeze';
+      }
 }
 
 
 function mousePressed()
 {
-    if(debugMode)
-    {
-      for(var i = aliens.length - 1; i >= 0; i--)
-      {
-        aliens[i].getAngry();
-      }
-    }
+
 }
 
 //handles continuous presses
@@ -218,6 +219,21 @@ function keyPressed() {
     ship.kill()
   }
 
+  if(key == 'O' && debugMode)
+  {
+      for(var i = aliens.length - 1; i >= 0; i--)
+      {
+        aliens[i].getAngry();
+      }
+  }
+
+  if(key=='I' && debugMode)
+  {
+     print("ship pos "+str(ship.pos.x.toFixed(1))+','+str(ship.pos.y.toFixed(1)));
+     frameDebug = true;
+
+  }
+
   if(keyCode == ENTER || keyCode == RETURN)
   {
     reset();
@@ -242,7 +258,7 @@ var addAliensIfNeeded = function()
   if(nextAlienSpawnTime < 1)
   {
     nextAlienSpawnTime = currentMillis + 20*1000;
-  } 
+  }
   if (currentMillis > nextAlienSpawnTime)
   {
     aliens.push(new Alien());

@@ -199,9 +199,12 @@ var handleKeyInput = function()
     {
       ship.rotateClockwise();
     }
+    resumeSoundIfContextBlocked();
 };
 
 function keyPressed() {
+  resumeSoundIfContextBlocked();
+
   if(key == ' ' && !ship.dead)
   {
     protonBolts.push(new Proton(ship.gunPos.x,ship.gunPos.y,radians(ship.gunOrientation)));
@@ -307,4 +310,12 @@ function oneSecondUpdateLoop() {
 
 function halfSecondUpdateLoop(){
   UI_text_update();
+}
+
+function resumeSoundIfContextBlocked()
+{
+  if (getAudioContext().state !== 'running')
+  {
+        getAudioContext().resume();
+  }
 }
